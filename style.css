@@ -16,31 +16,26 @@ body {
   width: 100%;
   max-width: 500px;
   background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Efek Bayangan lebih tajam */
-  padding: 40px 30px;
-  transform: translateY(-40px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.form-container:hover {
-  transform: translateY(0);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25); /* Efek bayangan saat hover */
+  border-radius: 8px; /* Bingkai lebih tipis */
+  padding: 30px 25px;
+  box-shadow: none; /* Menghilangkan bayangan */
+  border: 1px solid #ddd; /* Border tipis */
+  transition: transform 0.3s ease;
 }
 
 h2 {
   text-align: center;
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 600;
   margin-bottom: 20px;
   color: #333;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 label {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: #666;
   margin-bottom: 6px;
   display: block;
@@ -52,7 +47,7 @@ input, select {
   padding: 14px 18px;
   margin-top: 8px;
   font-size: 16px;
-  border-radius: 10px;
+  border-radius: 6px; /* Bingkai input lebih tipis */
   border: 1px solid #ccc;
   background-color: #fafafa;
   box-sizing: border-box;
@@ -71,9 +66,9 @@ button {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: 700;
+  border-radius: 6px; /* Bingkai tombol lebih tipis */
+  font-size: 16px;
+  font-weight: 600;
   margin-top: 30px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -81,7 +76,6 @@ button {
 
 button:hover {
   background-color: #0056b3; /* Warna biru lebih gelap saat hover */
-  transform: translateY(-2px); /* Efek tombol naik */
 }
 
 button:active {
@@ -101,6 +95,6 @@ button:active {
   }
 
   h2 {
-    font-size: 28px;
+    font-size: 24px;
   }
 }
