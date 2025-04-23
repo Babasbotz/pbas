@@ -1,95 +1,54 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pembayaran Produk</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struktur Pembayaran Produk</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="form-container">
-    <h2>Pembayaran Produk</h2>
-    <form id="paymentForm">
-      <label for="name">Nama Pembeli</label>
-      <input type="text" id="name" placeholder="Masukkan nama..." required />
+    <div class="container">
+        <h1>Form Pembayaran Produk</h1>
+        <form id="payment-form">
+            <label for="name">Nama</label>
+            <input type="text" id="name" name="name" required>
 
-      <label for="number">Nomor Pembeli</label>
-      <input type="tel" id="number" placeholder="08xxxxxxxxxx" required />
+            <label for="product">Pilih Produk</label>
+            <select id="product" name="product" required>
+                <option value="premium_user">Premium User</option>
+                <option value="sewabot_basic">Sewabot Basic</option>
+                <option value="sewabot_plus">Sewabot Plus</option>
+                <option value="sewabot_vvip">Sewabot VVIP</option>
+            </select>
 
-      <label for="product">Produk</label>
-      <select id="product" onchange="showDurationOptions()" required>
-        <option value="">-- Pilih Produk --</option>
-        <option value="Premium User">Premium User</option>
-        <option value="Sewabot Basic">Sewabot Basic</option>
-        <option value="Sewabot Plus">Sewabot Plus</option>
-        <option value="Sewabot VVIP">Sewabot VVIP</option>
-      </select>
+            <div id="sewabot-group-link-container" class="optional-field">
+                <label for="group-link">Link Grup (Hanya untuk Sewabot)</label>
+                <input type="url" id="group-link" name="group-link">
+            </div>
 
-      <div id="duration" style="display: none;">
-        <label for="durationSelect">Durasi (Premium User)</label>
-        <select id="durationSelect">
-          <option value="15 Hari">15 Hari - Rp 8.000</option>
-          <option value="1 Bulan">1 Bulan - Rp 15.000</option>
-          <option value="2 Bulan">2 Bulan - Rp 30.000</option>
-          <option value="1 Tahun">1 Tahun - Rp 60.000</option>
-          <option value="Permanent">Permanent - Rp 100.000</option>
-        </select>
-      </div>
+            <label for="duration">Durasi</label>
+            <input type="number" id="duration" name="duration" min="1" required>
 
-      <label for="payment">Metode Pembayaran</label>
-      <select id="payment" onchange="showPaymentNote()" required>
-        <option value="">-- Pilih Metode --</option>
-        <option value="Qris">Qris</option>
-        <option value="Dana">Dana</option>
-        <option value="Gopay">Gopay</option>
-      </select>
+            <label for="payment">Metode Pembayaran</label>
+            <select id="payment" name="payment" required>
+                <option value="dana">Dana</option>
+                <option value="qris">QRIS</option>
+                <option value="gopay">Gopay</option>
+            </select>
 
-      <div id="paymentNote" class="note"></div>
+            <label for="price">Harga</label>
+            <input type="number" id="price" name="price" required>
 
-      <button type="submit">Bayar via WhatsApp</button>
-    </form>
-  </div>
+            <label for="logo">Upload Logo</label>
+            <input type="file" id="logo" name="logo" accept="image/*">
 
-  <script>
-    function showDurationOptions() {
-      const product = document.getElementById("product").value;
-      const durationDiv = document.getElementById("duration");
+            <div class="form-buttons">
+                <button type="submit">Simpan</button>
+                <button type="button" onclick="window.print()">Print</button>
+            </div>
+        </form>
+    </div>
 
-      if (product === "Premium User") {
-        durationDiv.style.display = "block";
-      } else {
-        durationDiv.style.display = "none";
-      }
-    }
-
-    function showPaymentNote() {
-      const payment = document.getElementById("payment").value;
-      const paymentNote = document.getElementById("paymentNote");
-
-      if (payment === "Dana") {
-        paymentNote.textContent = "Nomor Dana: 08988189120";
-      } else if (payment === "Gopay") {
-        paymentNote.textContent = "Nomor Gopay: 08988189120";
-      } else {
-        paymentNote.textContent = "";
-      }
-    }
-
-    document.getElementById("paymentForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value;
-      const number = document.getElementById("number").value;
-      const product = document.getElementById("product").value;
-      const payment = document.getElementById("payment").value;
-      const duration = document.getElementById("durationSelect") ? document.getElementById("durationSelect").value : "";
-
-      const message = `Halo! Saya ingin membeli produk:\n\nNama: ${name}\nNomor: ${number}\nProduk: ${product}\nDurasi: ${duration}\nMetode Pembayaran: ${payment}`;
-      const encodedMessage = encodeURIComponent(message);
-
-      const waLink = `https://wa.me/6285119201210?text=${encodedMessage}`;
-      window.open(waLink, "_blank");
-    });
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
