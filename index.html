@@ -147,14 +147,8 @@
         <input type="text" id="payment" placeholder="Contoh: Transfer" />
       </div>
 
-      <button onclick="showPreview()">Preview</button>
       <button onclick="downloadImage()">Simpan Sebagai Gambar</button>
     </div>
-  </div>
-
-  <div id="preview-container">
-    <h2>Preview Struktur Pembayaran</h2>
-    <div id="preview-content"></div>
   </div>
 
   <div class="thank-you-message" id="thank-you-message" style="display: none;">
@@ -193,34 +187,6 @@
       }
     }
 
-    function showPreview() {
-      const nama = document.getElementById('nama').value;
-      const produk = document.getElementById('produk').value;
-      const durasi = document.getElementById('durasi').value;
-      const tanggal = document.getElementById('tanggal').value;
-      const harga = document.getElementById('harga').value;
-      const payment = document.getElementById('payment').value;
-
-      const nomorPremium = document.getElementById('nomorPremium') ? document.getElementById('nomorPremium').value : '';
-      const linkGrup = document.getElementById('linkGrup') ? document.getElementById('linkGrup').value : '';
-      const idGrup = document.getElementById('idGrup') ? document.getElementById('idGrup').value : '';
-
-      const previewContainer = document.getElementById('preview-content');
-      previewContainer.innerHTML = `
-        <div class="preview-entry"><strong>Nama:</strong> ${nama}</div>
-        <div class="preview-entry"><strong>Produk:</strong> ${produk}</div>
-        <div class="preview-entry"><strong>Durasi:</strong> ${durasi}</div>
-        <div class="preview-entry"><strong>Tanggal Pembelian:</strong> ${tanggal}</div>
-        <div class="preview-entry"><strong>Harga:</strong> ${harga}</div>
-        <div class="preview-entry"><strong>Payment:</strong> ${payment}</div>`;
-
-      if (nomorPremium) previewContainer.innerHTML += `<div class="preview-entry"><strong>Nomor Premium:</strong> ${nomorPremium}</div>`;
-      if (linkGrup) previewContainer.innerHTML += `<div class="preview-entry"><strong>Link Grup:</strong> ${linkGrup}</div>`;
-      if (idGrup) previewContainer.innerHTML += `<div class="preview-entry"><strong>ID Grup:</strong> ${idGrup}</div>`;
-
-      document.getElementById('preview-container').style.display = 'block';
-    }
-
     function downloadImage() {
       const area = document.getElementById('capture-area');
       html2canvas(area).then(canvas => {
@@ -231,7 +197,6 @@
 
         // Hide buttons and show "Thank You" message
         document.querySelector('button').style.display = 'none';
-        document.querySelectorAll('button')[1].style.display = 'none';
         document.getElementById('thank-you-message').style.display = 'block';
       });
     }
