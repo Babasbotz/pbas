@@ -13,10 +13,10 @@
     }
 
     .payment-container {
-      max-width: 500px;
+      max-width: 400px; /* Perkecil ukuran form */
       margin: 40px auto;
       background-color: #fff;
-      padding: 30px;
+      padding: 20px;
       border-radius: 10px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
@@ -24,7 +24,7 @@
     h1 {
       text-align: center;
       color: #333;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     .form-group {
@@ -40,10 +40,10 @@
     }
 
     input, select {
-      padding: 12px;
+      padding: 10px;
       border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 16px;
+      font-size: 14px;
       background-color: #f9f9f9;
       width: 100%;
       box-sizing: border-box;
@@ -57,7 +57,7 @@
       color: white;
       border: none;
       border-radius: 6px;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
     }
@@ -82,11 +82,15 @@
 
       <div class="form-group">
         <label for="product">Produk</label>
-        <select id="product" required>
+        <select id="product" required onchange="toggleProductFields()">
           <option value="Premium User">Premium User</option>
-          <option value="Sewabot Grup">Sewabot Grup</option>
+          <option value="Sewabot Basic">Sewabot Basic</option>
+          <option value="Sewabot Plus">Sewabot Plus</option>
+          <option value="Sewabot VVIP">Sewabot VVIP</option>
         </select>
       </div>
+
+      <div id="additional-fields"></div>
 
       <div class="form-group">
         <label for="duration">Durasi</label>
@@ -124,6 +128,50 @@
   <canvas id="payment-canvas" width="900" height="600"></canvas>
 
   <script>
+    function toggleProductFields() {
+      const product = document.getElementById("product").value;
+      const additionalFields = document.getElementById("additional-fields");
+      additionalFields.innerHTML = ""; // Clear previous fields
+
+      if (product === "Premium User") {
+        additionalFields.innerHTML = `
+          <div class="form-group">
+            <label for="premium-number">Nomor Premium</label>
+            <input type="text" id="premium-number" required>
+          </div>`;
+      } else if (product === "Sewabot Basic") {
+        additionalFields.innerHTML = `
+          <div class="form-group">
+            <label for="group-link">Link Grup</label>
+            <input type="text" id="group-link" required>
+          </div>`;
+      } else if (product === "Sewabot Plus") {
+        additionalFields.innerHTML = `
+          <div class="form-group">
+            <label for="premium-number">Nomor Premium</label>
+            <input type="text" id="premium-number" required>
+          </div>
+          <div class="form-group">
+            <label for="group-link">Link Grup</label>
+            <input type="text" id="group-link" required>
+          </div>`;
+      } else if (product === "Sewabot VVIP") {
+        additionalFields.innerHTML = `
+          <div class="form-group">
+            <label for="premium-number">Nomor Premium</label>
+            <input type="text" id="premium-number" required>
+          </div>
+          <div class="form-group">
+            <label for="group-id">Id Grup</label>
+            <input type="text" id="group-id" required>
+          </div>
+          <div class="form-group">
+            <label for="group-link">Link Grup</label>
+            <input type="text" id="group-link" required>
+          </div>`;
+      }
+    }
+
     function generateInvoice() {
       const name = document.getElementById("name").value;
       const product = document.getElementById("product").value;
@@ -131,7 +179,10 @@
       const payment = document.getElementById("payment").value;
       const price = document.getElementById("price").value;
       const tanggal = document.getElementById("tanggal").value;
-      const logoInput = document.getElementById("logo");
+      const logoInput = document.getElementById("logo").files[0];
+      const premiumNumber = document.getElementById("premium-number")?.value || '';
+      const groupLink = document.getElementById("group-link")?.value || '';
+      const groupId = document.getElementById("group-id")?.value || '';
       const canvas = document.getElementById("payment-canvas");
       const ctx = canvas.getContext("2d");
 
@@ -167,6 +218,16 @@
       ctx.fillText("Harga", 50, y += 40);  ctx.fillText(": " + price, 250, y);
       ctx.fillText("Tanggal", 50, y += 40);ctx.fillText(": " + tanggal, 250, y);
 
+      if (premiumNumber) {
+        ctx.fillText("Nomor Premium", 50, y += 40); ctx.fillText(": " + premiumNumber, 250, y);
+      }
+      if (groupLink) {
+        ctx.fillText("Link Grup", 50, y += 40); ctx.fillText(": " + groupLink, 250, y);
+      }
+      if (groupId) {
+        ctx.fillText("Id Grup", 50, y += 40); ctx.fillText(": " + groupId, 250, y);
+      }
+
       // Garis bawah
       ctx.beginPath();
       ctx.moveTo(50, y + 30);
@@ -180,13 +241,14 @@
       ctx.fillText("Terima kasih sudah order di Shina - Ai, simpan invoice ini agar bisa claim garansi jika botnya mati.", 50, y + 70);
 
       // Logo bulat jika ada
-      if (logoInput.files.length > 0) {
+      if (logoInput) {
         const reader = new FileReader();
-        reader.onload = function (event) {
+        reader.onload = function (e) {
           const logoImg = new Image();
+          logoImg.src = e.target.result;
           logoImg.onload = function () {
             const size = 80;
-            const cx = 820, cy = 60;
+            const cx = 820, cy = 40; // Posisi logo di atas sedikit
             ctx.save();
             ctx.beginPath();
             ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
@@ -194,20 +256,14 @@
             ctx.clip();
             ctx.drawImage(logoImg, cx - size / 2, cy - size / 2, size, size);
             ctx.restore();
-            downloadInvoice(canvas);
           };
-          logoImg.src = event.target.result;
         };
-        reader.readAsDataURL(logoInput.files[0]);
-      } else {
-        downloadInvoice(canvas);
+        reader.readAsDataURL(logoInput);
       }
-    }
 
-    function downloadInvoice(canvas) {
-      const image = canvas.toDataURL("image/jpeg", 1.0);
+      // Download invoice sebagai gambar
       const link = document.createElement("a");
-      link.href = image;
+      link.href = canvas.toDataURL("image/jpeg");
       link.download = "invoice-pembayaran.jpg";
       link.click();
     }
