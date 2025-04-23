@@ -180,8 +180,17 @@
 
     function loadLogo(event) {
       const preview = document.getElementById('logo-preview');
-      preview.src = URL.createObjectURL(event.target.files[0]);
-      preview.style.display = 'block';
+      const file = event.target.files[0];
+      
+      const reader = new FileReader();
+      reader.onloadend = function() {
+        preview.src = reader.result;
+        preview.style.display = 'block';
+      };
+      
+      if (file) {
+        reader.readAsDataURL(file);
+      }
     }
 
     function downloadImage() {
