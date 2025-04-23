@@ -108,6 +108,11 @@
       </div>
 
       <div class="form-group">
+        <label for="tanggal">Tanggal Pembelian</label>
+        <input type="date" id="tanggal" required>
+      </div>
+
+      <div class="form-group">
         <label for="logo">Upload Logo (Opsional)</label>
         <input type="file" id="logo" accept="image/*">
       </div>
@@ -125,16 +130,16 @@
       const duration = document.getElementById("duration").value;
       const payment = document.getElementById("payment").value;
       const price = document.getElementById("price").value;
+      const tanggal = document.getElementById("tanggal").value;
       const logoInput = document.getElementById("logo");
       const canvas = document.getElementById("payment-canvas");
       const ctx = canvas.getContext("2d");
 
-      if (!name || !product || !duration || !payment || !price) {
+      if (!name || !product || !duration || !payment || !price || !tanggal) {
         alert("Harap lengkapi semua kolom.");
         return;
       }
 
-      // Reset canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -146,12 +151,12 @@
       ctx.font = "bold 32px Arial";
       ctx.fillText("INVOICE PEMBAYARAN", 30, 50);
 
-      // Box
+      // Kotak isi
       ctx.strokeStyle = "#ccc";
       ctx.lineWidth = 2;
-      ctx.strokeRect(25, 100, 850, 400);
+      ctx.strokeRect(25, 100, 850, 420);
 
-      // Isi
+      // Isi Data
       ctx.fillStyle = "#000";
       ctx.font = "20px Arial";
       let y = 140;
@@ -160,6 +165,7 @@
       ctx.fillText("Durasi", 50, y += 40); ctx.fillText(": " + duration, 250, y);
       ctx.fillText("Payment", 50, y += 40);ctx.fillText(": " + payment, 250, y);
       ctx.fillText("Harga", 50, y += 40);  ctx.fillText(": " + price, 250, y);
+      ctx.fillText("Tanggal", 50, y += 40);ctx.fillText(": " + tanggal, 250, y);
 
       // Garis bawah
       ctx.beginPath();
@@ -181,18 +187,13 @@
           logoImg.onload = function () {
             const size = 80;
             const cx = 820, cy = 60;
-
-            // Buat bulat
             ctx.save();
             ctx.beginPath();
             ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
             ctx.closePath();
             ctx.clip();
-
-            // Gambar logo
             ctx.drawImage(logoImg, cx - size / 2, cy - size / 2, size, size);
             ctx.restore();
-
             downloadInvoice(canvas);
           };
           logoImg.src = event.target.result;
