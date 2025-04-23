@@ -111,24 +111,13 @@
 
       <div class="form-row">
         <label for="produk">Produk</label>
-        <div class="checkbox-container">
-          <div>
-            <input type="checkbox" id="premium" onchange="updateFields()" />
-            <label for="premium">Premium User</label>
-          </div>
-          <div>
-            <input type="checkbox" id="basic" onchange="updateFields()" />
-            <label for="basic">Sewabot Basic</label>
-          </div>
-          <div>
-            <input type="checkbox" id="plus" onchange="updateFields()" />
-            <label for="plus">Sewabot Plus</label>
-          </div>
-          <div>
-            <input type="checkbox" id="vvip" onchange="updateFields()" />
-            <label for="vvip">Sewabot VVIP</label>
-          </div>
-        </div>
+        <select id="produk" onchange="updateFields()">
+          <option value="">Pilih Produk</option>
+          <option value="premium">Premium User</option>
+          <option value="basic">Sewabot Basic</option>
+          <option value="plus">Sewabot Plus</option>
+          <option value="vvip">Sewabot VVIP</option>
+        </select>
       </div>
 
       <div id="additional-fields"></div>
@@ -160,16 +149,11 @@
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
     function updateFields() {
-      const produk = [];
-      if (document.getElementById('premium').checked) produk.push('premium');
-      if (document.getElementById('basic').checked) produk.push('basic');
-      if (document.getElementById('plus').checked) produk.push('plus');
-      if (document.getElementById('vvip').checked) produk.push('vvip');
-
+      const produk = document.getElementById('produk').value;
       const fields = document.getElementById('additional-fields');
       fields.innerHTML = '';
 
-      if (produk.includes('premium') || produk.includes('plus') || produk.includes('vvip')) {
+      if (produk === 'premium' || produk === 'plus' || produk === 'vvip') {
         fields.innerHTML += `
           <div class="form-row">
             <label for="nomorPremium">Nomor Premium</label>
@@ -177,7 +161,7 @@
           </div>`;
       }
 
-      if (produk.includes('basic') || produk.includes('plus') || produk.includes('vvip')) {
+      if (produk === 'basic' || produk === 'plus' || produk === 'vvip') {
         fields.innerHTML += `
           <div class="form-row">
             <label for="linkGrup">Link Grup</label>
@@ -185,7 +169,7 @@
           </div>`;
       }
 
-      if (produk.includes('vvip')) {
+      if (produk === 'vvip') {
         fields.innerHTML += `
           <div class="form-row">
             <label for="idGrup">ID Grup</label>
