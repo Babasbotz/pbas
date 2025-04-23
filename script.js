@@ -1,13 +1,16 @@
-document.getElementById('product').addEventListener('change', function () {
-    const sewabotGroupLinkContainer = document.getElementById('sewabot-group-link-container');
-    if (this.value.startsWith('sewabot')) {
-        sewabotGroupLinkContainer.style.display = 'block';
-    } else {
-        sewabotGroupLinkContainer.style.display = 'none';
-    }
+const productSelect = document.getElementById('product');
+const groupLinkField = document.getElementById('group-link-field');
+
+productSelect.addEventListener('change', () => {
+  const value = productSelect.value;
+  if (value.startsWith('sewabot')) {
+    groupLinkField.classList.remove('hidden');
+  } else {
+    groupLinkField.classList.add('hidden');
+  }
 });
 
-document.getElementById('payment-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert('Data berhasil disimpan!');
+document.getElementById('payment-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('Data berhasil disimpan!');
 });
