@@ -68,14 +68,47 @@
 
     .footer {
       text-align: center;
-      font-size: 14px;
-      color: #777;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333; 
       margin-top: 20px;
+      padding: 10px;
+      font-family: 'Arial', sans-serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Bayangan untuk kontras */
     }
 
     canvas {
       display: none;
     }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loader {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #fff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
   </style>
 </head>
 <body>
@@ -133,7 +166,11 @@
   </div>
 
   <div class="footer">
-    <p>© Copyright 2025 - Babas</p>
+    <p>Terima kasih sudah order di Shina - Ai, simpan invoice ini agar bisa claim garansi jika botnya mati.</p>
+  </div>
+
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loader"></div>
   </div>
 
   <canvas id="payment-canvas" width="900" height="600"></canvas>
@@ -201,6 +238,9 @@
         alert("Harap lengkapi semua kolom.");
         return;
       }
+
+      // Show loading overlay
+      document.getElementById("loading-overlay").style.display = "flex";
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#ffffff";
@@ -277,6 +317,9 @@
       link.href = canvas.toDataURL("image/jpeg");
       link.download = "invoice-pembayaran.jpg";
       link.click();
+
+      // Hide loading overlay
+      document.getElementById("loading-overlay").style.display = "none";
     }
   </script>
 </body>
