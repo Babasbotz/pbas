@@ -20,6 +20,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
+    border: 2px solid #ddd;  /* Bingkai di sekitar form */
 }
 
 h2 {
@@ -41,7 +42,7 @@ h2 {
 
 .form-group input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 4px;
