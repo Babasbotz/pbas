@@ -66,49 +66,40 @@
       background-color: #0056b3;
     }
 
-    .footer {
+    .copyright {
       text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      color: #333; 
-      margin-top: 20px;
-      padding: 10px;
-      font-family: 'Arial', sans-serif;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Bayangan untuk kontras */
+      font-size: 14px;
+      color: #777;
+      margin: 20px 0;
+    }
+
+    /* loading overlay */
+    .loading-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loader {
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top: 4px solid #fff;
+      border-radius: 50%;
+      width: 50px; height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     canvas {
       display: none;
     }
-
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      display: none;
-    }
-
-    .loader {
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      border-top: 4px solid #fff;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
   </style>
 </head>
 <body>
@@ -165,8 +156,8 @@
     </form>
   </div>
 
-  <div class="footer">
-    <p>Terima kasih sudah order di Shina - Ai, simpan invoice ini agar bisa claim garansi jika botnya mati.</p>
+  <div class="copyright">
+    © Copyright 2025 – Babas
   </div>
 
   <div class="loading-overlay" id="loading-overlay">
@@ -178,148 +169,143 @@
   <script>
     function toggleProductFields() {
       const product = document.getElementById("product").value;
-      const additionalFields = document.getElementById("additional-fields");
-      additionalFields.innerHTML = ""; // Clear previous fields
+      const container = document.getElementById("additional-fields");
+      container.innerHTML = "";
 
       if (product === "Premium User") {
-        additionalFields.innerHTML = `
+        container.innerHTML = `
           <div class="form-group">
-            <label for="premium-number">Nomor Premium</label>
+            <label>Nomor Premium</label>
             <input type="text" id="premium-number" required>
           </div>`;
       } else if (product === "Sewabot Basic") {
-        additionalFields.innerHTML = `
+        container.innerHTML = `
           <div class="form-group">
-            <label for="group-link">Link Grup</label>
+            <label>Link Grup</label>
             <input type="text" id="group-link" required>
           </div>`;
       } else if (product === "Sewabot Plus") {
-        additionalFields.innerHTML = `
+        container.innerHTML = `
           <div class="form-group">
-            <label for="premium-number">Nomor Premium</label>
+            <label>Nomor Premium</label>
             <input type="text" id="premium-number" required>
           </div>
           <div class="form-group">
-            <label for="group-link">Link Grup</label>
+            <label>Link Grup</label>
             <input type="text" id="group-link" required>
           </div>`;
       } else if (product === "Sewabot VVIP") {
-        additionalFields.innerHTML = `
+        container.innerHTML = `
           <div class="form-group">
-            <label for="premium-number">Nomor Premium</label>
+            <label>Nomor Premium</label>
             <input type="text" id="premium-number" required>
           </div>
           <div class="form-group">
-            <label for="group-id">Id Grup</label>
+            <label>Id Grup</label>
             <input type="text" id="group-id" required>
           </div>
           <div class="form-group">
-            <label for="group-link">Link Grup</label>
+            <label>Link Grup</label>
             <input type="text" id="group-link" required>
           </div>`;
       }
     }
 
     function generateInvoice() {
+      const fields = ["name","duration","payment","price","tanggal"];
+      for (let id of fields) {
+        if (!document.getElementById(id).value) {
+          alert("Lengkapi semua kolom.");
+          return;
+        }
+      }
+
+      document.getElementById("loading-overlay").style.display = "flex";
+
       const name = document.getElementById("name").value;
       const product = document.getElementById("product").value;
       const duration = document.getElementById("duration").value;
       const payment = document.getElementById("payment").value;
       const price = document.getElementById("price").value;
       const tanggal = document.getElementById("tanggal").value;
-      const logoInput = document.getElementById("logo").files[0];
-      const premiumNumber = document.getElementById("premium-number")?.value || '';
-      const groupLink = document.getElementById("group-link")?.value || '';
-      const groupId = document.getElementById("group-id")?.value || '';
+      const premium = document.getElementById("premium-number")?.value;
+      const link   = document.getElementById("group-link")?.value;
+      const gid    = document.getElementById("group-id")?.value;
+
       const canvas = document.getElementById("payment-canvas");
       const ctx = canvas.getContext("2d");
 
-      if (!name || !product || !duration || !payment || !price || !tanggal) {
-        alert("Harap lengkapi semua kolom.");
-        return;
-      }
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle="#fff";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
 
-      // Show loading overlay
-      document.getElementById("loading-overlay").style.display = "flex";
+      // header
+      ctx.fillStyle="#007bff";
+      ctx.fillRect(0,0,canvas.width,80);
+      ctx.fillStyle="#fff";
+      ctx.font="bold 32px Arial";
+      ctx.fillText("INVOICE PEMBAYARAN",30,50);
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // box
+      ctx.strokeStyle="#ccc";
+      ctx.lineWidth=2;
+      ctx.strokeRect(25,100,850,420);
 
-      // Header
-      ctx.fillStyle = "#007bff";
-      ctx.fillRect(0, 0, canvas.width, 80);
-      ctx.fillStyle = "#fff";
-      ctx.font = "bold 32px Arial";
-      ctx.fillText("INVOICE PEMBAYARAN", 30, 50);
+      // isi
+      ctx.fillStyle="#000";
+      ctx.font="20px Arial";
+      let y=140;
+      ctx.fillText("Nama       : "+name,50,y);
+      ctx.fillText("Produk     : "+product,50,y+=40);
+      ctx.fillText("Durasi     : "+duration,50,y+=40);
+      ctx.fillText("Payment    : "+payment,50,y+=40);
+      ctx.fillText("Harga      : "+price,50,y+=40);
+      ctx.fillText("Tanggal    : "+tanggal,50,y+=40);
+      if(premium) ctx.fillText("Nomor Prem.: "+premium,50,y+=40);
+      if(link)    ctx.fillText("Link Grup  : "+link,50,y+=40);
+      if(gid)     ctx.fillText("Id Grup    : "+gid,50,y+=40);
 
-      // Kotak isi
-      ctx.strokeStyle = "#ccc";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(25, 100, 850, 420);
-
-      // Isi Data
-      ctx.fillStyle = "#000";
-      ctx.font = "20px Arial";
-      let y = 140;
-      ctx.fillText("Nama", 50, y);         ctx.fillText(": " + name, 250, y);
-      ctx.fillText("Produk", 50, y += 40); ctx.fillText(": " + product, 250, y);
-      ctx.fillText("Durasi", 50, y += 40); ctx.fillText(": " + duration, 250, y);
-      ctx.fillText("Payment", 50, y += 40);ctx.fillText(": " + payment, 250, y);
-      ctx.fillText("Harga", 50, y += 40);  ctx.fillText(": " + price, 250, y);
-      ctx.fillText("Tanggal", 50, y += 40);ctx.fillText(": " + tanggal, 250, y);
-
-      if (premiumNumber) {
-        ctx.fillText("Nomor Premium", 50, y += 40); ctx.fillText(": " + premiumNumber, 250, y);
-      }
-      if (groupLink) {
-        ctx.fillText("Link Grup", 50, y += 40); ctx.fillText(": " + groupLink, 250, y);
-      }
-      if (groupId) {
-        ctx.fillText("Id Grup", 50, y += 40); ctx.fillText(": " + groupId, 250, y);
-      }
-
-      // Garis bawah
+      // garis
       ctx.beginPath();
-      ctx.moveTo(50, y + 30);
-      ctx.lineTo(850, y + 30);
-      ctx.strokeStyle = "#ccc";
+      ctx.moveTo(50,y+30);
+      ctx.lineTo(850,y+30);
+      ctx.strokeStyle="#ccc";
       ctx.stroke();
 
-      // Footer
-      ctx.fillStyle = "#555";
-      ctx.font = "italic 18px Arial";
-      ctx.fillText("Terima kasih sudah order di Shina - Ai, simpan invoice ini agar bisa claim garansi jika botnya mati.", 50, y + 70);
+      // ucapan
+      ctx.fillStyle="#555";
+      ctx.font="italic 18px Arial";
+      ctx.fillText("Terima kasih sudah order di Shina - Ai, simpan invoice ini agar bisa claim garansi jika botnya mati.",50,y+70);
 
-      // Logo bulat jika ada
-      if (logoInput) {
+      // logo bulat
+      const file = document.getElementById("logo").files[0];
+      if(file) {
         const reader = new FileReader();
-        reader.onload = function (e) {
-          const logoImg = new Image();
-          logoImg.src = e.target.result;
-          logoImg.onload = function () {
-            const size = 80;
-            const cx = 820, cy = 40; // Posisi logo di atas sedikit
+        reader.onload = e=>{
+          const img=new Image();
+          img.src=e.target.result;
+          img.onload=()=>{
+            const size=80, cx=820, cy=40;
             ctx.save();
             ctx.beginPath();
-            ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
-            ctx.closePath();
+            ctx.arc(cx,cy,size/2,0,2*Math.PI);
             ctx.clip();
-            ctx.drawImage(logoImg, cx - size / 2, cy - size / 2, size, size);
+            ctx.drawImage(img,cx-size/2,cy-size/2,size,size);
             ctx.restore();
+            finish();
           };
         };
-        reader.readAsDataURL(logoInput);
+        reader.readAsDataURL(file);
+      } else finish();
+
+      function finish(){
+        // unduh
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/jpeg");
+        link.download = "invoice-pembayaran.jpg";
+        link.click();
+        document.getElementById("loading-overlay").style.display="none";
       }
-
-      // Download invoice sebagai gambar
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/jpeg");
-      link.download = "invoice-pembayaran.jpg";
-      link.click();
-
-      // Hide loading overlay
-      document.getElementById("loading-overlay").style.display = "none";
     }
   </script>
 </body>
