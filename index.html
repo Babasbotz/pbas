@@ -3,83 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Pembayaran</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Pembayaran Produk</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Form Pembayaran</h2>
-        <form id="payment-form">
+    <div class="payment-container">
+        <h1>Form Pembayaran</h1>
+        <form action="#" method="POST">
             <div class="form-group">
-                <label for="nama">Nama</label>
-                <input type="text" id="nama" placeholder="Masukkan Nama">
+                <label for="name">Nama</label>
+                <input type="text" id="name" name="name" required>
             </div>
+
             <div class="form-group">
-                <label for="produk">Produk</label>
-                <input type="text" id="produk" placeholder="Masukkan Produk">
+                <label for="product">Produk</label>
+                <select id="product" name="product" required>
+                    <option value="premium">Premium User</option>
+                    <option value="sewabot">Sewabot Grup</option>
+                </select>
             </div>
+
             <div class="form-group">
-                <label for="durasi">Durasi</label>
-                <input type="text" id="durasi" placeholder="Masukkan Durasi">
+                <label for="duration">Durasi</label>
+                <input type="number" id="duration" name="duration" min="1" required>
             </div>
-            <div class="form-group">
-                <label for="tanggal">Tanggal Pembayaran</label>
-                <input type="date" id="tanggal">
-            </div>
+
             <div class="form-group">
                 <label for="payment">Payment</label>
-                <input type="text" id="payment" placeholder="Metode Pembayaran">
+                <select id="payment" name="payment" required>
+                    <option value="dana">Dana</option>
+                    <option value="qris">QRIS</option>
+                    <option value="gopay">Gopay</option>
+                </select>
             </div>
+
             <div class="form-group">
-                <label for="harga">Harga</label>
-                <input type="number" id="harga" placeholder="Masukkan Harga">
+                <label for="price">Harga</label>
+                <input type="number" id="price" name="price" required readonly>
             </div>
+
+            <button type="submit" class="save-btn">Simpan</button>
         </form>
-
-        <button type="button" id="save-btn">Simpan Gambar</button>
-        <button type="button" id="print-btn">Print</button>
     </div>
-
-    <canvas id="canvas" style="display:none;"></canvas>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script>
-        // Fungsi untuk menyimpan form sebagai gambar
-        document.getElementById('save-btn').addEventListener('click', function() {
-            html2canvas(document.getElementById('payment-form'), {
-                logging: true,  // Menampilkan log di konsol untuk debugging
-                useCORS: true,  // Mengaktifkan CORS jika ada konten eksternal
-                allowTaint: true, // Membiarkan gambar atau elemen yang tidak memiliki CORS diambil
-                scrollX: 0, 
-                scrollY: -window.scrollY,
-                width: document.getElementById('payment-form').scrollWidth,
-                height: document.getElementById('payment-form').scrollHeight,
-                x: document.getElementById('payment-form').getBoundingClientRect().left,
-                y: document.getElementById('payment-form').getBoundingClientRect().top
-            }).then(function(canvas) {
-                // Simpan canvas sebagai gambar
-                const imageUrl = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.href = imageUrl;
-                link.download = 'form_pembayaran.png'; // Nama file gambar
-                link.click();
-            }).catch(function(error) {
-                console.error('Error saving image:', error);
-            });
-        });
-
-        // Fungsi untuk mencetak form
-        document.getElementById('print-btn').addEventListener('click', function() {
-            const content = document.getElementById('payment-form');
-            const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Print Form Pembayaran</title>');
-            printWindow.document.write('<style>body { font-family: Arial, sans-serif; padding: 20px; }</style>');
-            printWindow.document.write('</head><body>');
-            printWindow.document.write(content.innerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        });
-    </script>
 </body>
 </html>
