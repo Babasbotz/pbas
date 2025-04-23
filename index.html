@@ -94,7 +94,7 @@
       </div>
 
       <div class="form-group">
-        <label for="payment">Metode Pembayaran</label>
+        <label for="payment">Payment</label>
         <select id="payment" required>
           <option value="Dana">Dana</option>
           <option value="QRIS">QRIS</option>
@@ -107,14 +107,14 @@
         <input type="text" id="price" placeholder="Contoh: Rp 20.000" required>
       </div>
 
-      <button type="button" class="save-btn" onclick="generateReceipt()">Simpan & Unduh Bukti</button>
+      <button type="button" class="save-btn" onclick="generateInvoice()">Simpan & Unduh Invoice</button>
     </form>
   </div>
 
-  <canvas id="payment-canvas" width="800" height="500"></canvas>
+  <canvas id="payment-canvas" width="900" height="600"></canvas>
 
   <script>
-    function generateReceipt() {
+    function generateInvoice() {
       const name = document.getElementById("name").value;
       const product = document.getElementById("product").value;
       const duration = document.getElementById("duration").value;
@@ -129,45 +129,48 @@
       const canvas = document.getElementById("payment-canvas");
       const ctx = canvas.getContext("2d");
 
-      // Latar belakang
+      // Background
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Header
       ctx.fillStyle = "#007bff";
-      ctx.fillRect(0, 0, canvas.width, 70);
+      ctx.fillRect(0, 0, canvas.width, 80);
       ctx.fillStyle = "#fff";
-      ctx.font = "bold 28px Arial";
-      ctx.fillText("BUKTI PEMBAYARAN", 20, 45);
+      ctx.font = "bold 32px Arial";
+      ctx.fillText("INVOICE PEMBAYARAN", 30, 50);
 
-      // Isi data
+      // Box layout
+      ctx.strokeStyle = "#ccc";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(25, 100, 850, 400);
+
       ctx.fillStyle = "#000";
       ctx.font = "20px Arial";
-      let y = 100;
-      ctx.fillText("Nama               : " + name, 30, y);
-      ctx.fillText("Produk             : " + product, 30, y += 40);
-      ctx.fillText("Durasi             : " + duration, 30, y += 40);
-      ctx.fillText("Metode Pembayaran : " + payment, 30, y += 40);
-      ctx.fillText("Harga              : " + price, 30, y += 40);
+      let y = 140;
+      ctx.fillText("Nama", 50, y);         ctx.fillText(": " + name, 250, y);
+      ctx.fillText("Produk", 50, y += 40); ctx.fillText(": " + product, 250, y);
+      ctx.fillText("Durasi", 50, y += 40); ctx.fillText(": " + duration, 250, y);
+      ctx.fillText("Payment", 50, y += 40);ctx.fillText(": " + payment, 250, y);
+      ctx.fillText("Harga", 50, y += 40);  ctx.fillText(": " + price, 250, y);
 
-      // Garis pemisah
+      // Garis pembatas
       ctx.beginPath();
-      ctx.moveTo(30, y + 20);
-      ctx.lineTo(770, y + 20);
-      ctx.strokeStyle = "#ddd";
-      ctx.lineWidth = 1;
+      ctx.moveTo(50, y + 30);
+      ctx.lineTo(850, y + 30);
+      ctx.strokeStyle = "#ccc";
       ctx.stroke();
 
       // Footer
       ctx.fillStyle = "#555";
       ctx.font = "italic 18px Arial";
-      ctx.fillText("Terima kasih telah melakukan pembayaran.", 30, y + 60);
+      ctx.fillText("Terima kasih telah melakukan pembayaran. Simpan invoice ini sebagai bukti yang sah.", 50, y + 70);
 
-      // Convert dan unduh JPG
+      // Unduh gambar
       const image = canvas.toDataURL("image/jpeg", 1.0);
       const link = document.createElement("a");
       link.href = image;
-      link.download = "bukti-pembayaran.jpg";
+      link.download = "invoice-pembayaran.jpg";
       link.click();
     }
   </script>
