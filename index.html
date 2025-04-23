@@ -3,41 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Website Payment</title>
+  <title>Pembayaran Produk</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h2>Pembayaran Produk</h2>
-    <form id="paymentForm">
-      <label for="name">Nama Pembeli</label>
-      <input type="text" id="name" required />
+  <div class="iphone-wrapper">
+    <div class="screen">
+      <h2>Pembayaran</h2>
+      <form id="paymentForm">
+        <label for="name">Nama Pembeli</label>
+        <input type="text" id="name" placeholder="Masukkan nama..." required />
 
-      <label for="number">Nomor Pembeli</label>
-      <input type="tel" id="number" required />
+        <label for="number">Nomor Pembeli</label>
+        <input type="tel" id="number" placeholder="08xxxxxxxxxx" required />
 
-      <label for="product">Produk</label>
-      <select id="product" required>
-        <option value="">-- Pilih Produk --</option>
-        <option value="Premium User">Premium User</option>
-        <option value="Sewabot Basic">Sewabot Basic</option>
-        <option value="Sewabot Plus">Sewabot Plus</option>
-        <option value="Sewabot VVIP">Sewabot VVIP</option>
-      </select>
+        <label for="product">Produk</label>
+        <select id="product" required>
+          <option value="">-- Pilih Produk --</option>
+          <option value="Premium User">Premium User</option>
+          <option value="Sewabot Basic">Sewabot Basic</option>
+          <option value="Sewabot Plus">Sewabot Plus</option>
+          <option value="Sewabot VVIP">Sewabot VVIP</option>
+        </select>
 
-      <label for="payment">Metode Pembayaran</label>
-      <select id="payment" required>
-        <option value="">-- Pilih Metode --</option>
-        <option value="Qris">Qris</option>
-        <option value="Dana">Dana</option>
-        <option value="Gopay">Gopay</option>
-      </select>
+        <label for="payment">Metode Pembayaran</label>
+        <select id="payment" onchange="showPaymentNote()" required>
+          <option value="">-- Pilih Metode --</option>
+          <option value="Qris">Qris</option>
+          <option value="Dana">Dana</option>
+          <option value="Gopay">Gopay</option>
+        </select>
 
-      <button type="submit">Hubungi via WhatsApp</button>
-    </form>
+        <div id="paymentNote" class="note"></div>
+
+        <button type="submit">Bayar via WhatsApp</button>
+      </form>
+    </div>
   </div>
 
   <script>
+    function showPaymentNote() {
+      const payment = document.getElementById("payment").value;
+      const note = document.getElementById("paymentNote");
+
+      if (payment === "Dana" || payment === "Gopay") {
+        note.textContent = "Transfer ke: 08988189120 a.n. Penjual";
+      } else {
+        note.textContent = "";
+      }
+    }
+
     document.getElementById("paymentForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
@@ -49,7 +64,7 @@
       const message = `Halo! Saya ingin membeli produk:\n\nNama: ${name}\nNomor: ${number}\nProduk: ${product}\nMetode Pembayaran: ${payment}`;
       const encodedMessage = encodeURIComponent(message);
 
-      const waLink = `https://wa.me/6281234567890?text=${encodedMessage}`; // Ganti dengan nomor WhatsApp Anda
+      const waLink = `https://wa.me/6285119201210?text=${encodedMessage}`;
       window.open(waLink, "_blank");
     });
   </script>
