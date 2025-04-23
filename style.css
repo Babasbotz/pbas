@@ -6,19 +6,13 @@ body {
   color: #333;
 }
 
-.iphone-wrapper {
-  max-width: 400px;
+.form-container {
+  max-width: 500px;
   margin: auto;
-  border-radius: 30px;
   background: #fff;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   padding: 30px 20px 40px;
-}
-
-.screen {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  border-radius: 12px;
 }
 
 h2 {
