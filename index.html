@@ -3,42 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Struktur Pembayaran Kosong</title>
+    <title>Form Pembayaran</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <table class="payment-table">
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>Produk</th>
-                    <th>Durasi</th>
-                    <th>Tanggal Pembayaran</th>
-                    <th>Payment</th>
-                    <th>Harga</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" placeholder="Nama"></td>
-                    <td><input type="text" placeholder="Produk"></td>
-                    <td><input type="text" placeholder="Durasi"></td>
-                    <td><input type="date"></td>
-                    <td><input type="text" placeholder="Payment"></td>
-                    <td><input type="number" placeholder="Harga"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" placeholder="Nama"></td>
-                    <td><input type="text" placeholder="Produk"></td>
-                    <td><input type="text" placeholder="Durasi"></td>
-                    <td><input type="date"></td>
-                    <td><input type="text" placeholder="Payment"></td>
-                    <td><input type="number" placeholder="Harga"></td>
-                </tr>
-                <!-- Tambahkan baris kosong lainnya jika diperlukan -->
-            </tbody>
-        </table>
+        <h2>Form Pembayaran</h2>
+        <form>
+            <div class="form-group">
+                <label for="nama">Nama</label>
+                <input type="text" id="nama" placeholder="Masukkan Nama">
+            </div>
+            <div class="form-group">
+                <label for="produk">Produk</label>
+                <input type="text" id="produk" placeholder="Masukkan Produk">
+            </div>
+            <div class="form-group">
+                <label for="durasi">Durasi</label>
+                <input type="text" id="durasi" placeholder="Masukkan Durasi">
+            </div>
+            <div class="form-group">
+                <label for="tanggal">Tanggal Pembayaran</label>
+                <input type="date" id="tanggal">
+            </div>
+            <div class="form-group">
+                <label for="payment">Payment</label>
+                <input type="text" id="payment" placeholder="Metode Pembayaran">
+            </div>
+            <div class="form-group">
+                <label for="harga">Harga</label>
+                <input type="number" id="harga" placeholder="Masukkan Harga">
+            </div>
+        </form>
     </div>
 </body>
 </html>
