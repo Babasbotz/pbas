@@ -95,6 +95,13 @@
     .preview-entry {
       margin-bottom: 12px;
     }
+
+    .thank-you-message {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #4CAF50;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -148,6 +155,10 @@
   <div id="preview-container">
     <h2>Preview Struktur Pembayaran</h2>
     <div id="preview-content"></div>
+  </div>
+
+  <div class="thank-you-message" id="thank-you-message" style="display: none;">
+    Terima kasih sudah order bot di SHINA - Ai
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -217,6 +228,11 @@
         link.download = 'struktur-pembayaran.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
+
+        // Hide buttons and show "Thank You" message
+        document.querySelector('button').style.display = 'none';
+        document.querySelectorAll('button')[1].style.display = 'none';
+        document.getElementById('thank-you-message').style.display = 'block';
       });
     }
   </script>
