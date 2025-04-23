@@ -47,8 +47,6 @@
 
         <div id="paymentNote" class="note"></div>
 
-        <div id="paymentDetails" class="note"></div>
-
         <button type="submit">Bayar via WhatsApp</button>
       </form>
     </div>
@@ -69,12 +67,6 @@
     function showPaymentNote() {
       const payment = document.getElementById("payment").value;
       const paymentNote = document.getElementById("paymentNote");
-
-      if (payment === "Dana" || payment === "Gopay") {
-        document.getElementById("paymentDetails").textContent = "Transfer ke: 08988189120 a.n. Penjual";
-      } else {
-        document.getElementById("paymentDetails").textContent = "";
-      }
 
       if (payment === "Dana") {
         paymentNote.textContent = "Nomor Dana: 08988189120";
