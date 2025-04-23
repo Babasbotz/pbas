@@ -14,20 +14,20 @@ body {
 
 .form-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 400px; /* Ukuran form lebih kecil */
   background: #ffffff;
-  border-radius: 8px; /* Bingkai lebih tipis */
-  padding: 30px 25px;
+  border-radius: 6px; /* Bingkai lebih kecil */
+  padding: 20px 20px;
   box-shadow: none; /* Menghilangkan bayangan */
-  border: 1px solid #ddd; /* Border tipis */
+  border: 1px solid #ddd; /* Border lebih tipis */
   transition: transform 0.3s ease;
 }
 
 h2 {
   text-align: center;
-  font-size: 28px;
+  font-size: 26px; /* Ukuran font heading lebih kecil */
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #333;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -39,15 +39,15 @@ label {
   color: #666;
   margin-bottom: 6px;
   display: block;
-  margin-top: 20px;
+  margin-top: 15px; /* Spasi lebih kecil */
 }
 
 input, select {
   width: 100%;
-  padding: 14px 18px;
-  margin-top: 8px;
-  font-size: 16px;
-  border-radius: 6px; /* Bingkai input lebih tipis */
+  padding: 12px 15px; /* Padding lebih kecil */
+  margin-top: 6px;
+  font-size: 15px;
+  border-radius: 4px; /* Bingkai input lebih kecil */
   border: 1px solid #ccc;
   background-color: #fafafa;
   box-sizing: border-box;
@@ -62,14 +62,14 @@ input:focus, select:focus {
 
 button {
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 6px; /* Bingkai tombol lebih tipis */
+  border-radius: 4px; /* Bingkai tombol lebih kecil */
   font-size: 16px;
   font-weight: 600;
-  margin-top: 30px;
+  margin-top: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -83,18 +83,18 @@ button:active {
 }
 
 .note {
-  margin-top: 12px;
-  font-size: 14px;
+  margin-top: 10px;
+  font-size: 13px;
   color: #888;
   font-style: italic;
 }
 
 @media (max-width: 600px) {
   .form-container {
-    padding: 30px 20px;
+    padding: 25px 15px;
   }
 
   h2 {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
