@@ -81,21 +81,19 @@
       background: #1565c0;
     }
 
-    .checkbox-container {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
+    #preview-container {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      display: none;
+      max-width: 600px;
+      width: 100%;
+      border-radius: 12px;
     }
 
-    .checkbox-container label {
-      font-weight: 600;
-    }
-
-    .checkbox-container input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      margin-right: 8px;
+    .preview-entry {
+      margin-bottom: 12px;
     }
   </style>
 </head>
@@ -141,10 +139,16 @@
         <label for="payment">Payment</label>
         <input type="text" id="payment" placeholder="Contoh: Transfer" />
       </div>
+
+      <button onclick="showPreview()">Preview</button>
+      <button onclick="downloadImage()">Simpan Sebagai Gambar</button>
     </div>
   </div>
 
-  <button onclick="downloadImage()">Simpan Sebagai Gambar</button>
+  <div id="preview-container">
+    <h2>Preview Struktur Pembayaran</h2>
+    <div id="preview-content"></div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
@@ -176,6 +180,34 @@
             <input type="text" id="idGrup" placeholder="Masukkan ID Grup" />
           </div>`;
       }
+    }
+
+    function showPreview() {
+      const nama = document.getElementById('nama').value;
+      const produk = document.getElementById('produk').value;
+      const durasi = document.getElementById('durasi').value;
+      const tanggal = document.getElementById('tanggal').value;
+      const harga = document.getElementById('harga').value;
+      const payment = document.getElementById('payment').value;
+
+      const nomorPremium = document.getElementById('nomorPremium') ? document.getElementById('nomorPremium').value : '';
+      const linkGrup = document.getElementById('linkGrup') ? document.getElementById('linkGrup').value : '';
+      const idGrup = document.getElementById('idGrup') ? document.getElementById('idGrup').value : '';
+
+      const previewContainer = document.getElementById('preview-content');
+      previewContainer.innerHTML = `
+        <div class="preview-entry"><strong>Nama:</strong> ${nama}</div>
+        <div class="preview-entry"><strong>Produk:</strong> ${produk}</div>
+        <div class="preview-entry"><strong>Durasi:</strong> ${durasi}</div>
+        <div class="preview-entry"><strong>Tanggal Pembelian:</strong> ${tanggal}</div>
+        <div class="preview-entry"><strong>Harga:</strong> ${harga}</div>
+        <div class="preview-entry"><strong>Payment:</strong> ${payment}</div>`;
+
+      if (nomorPremium) previewContainer.innerHTML += `<div class="preview-entry"><strong>Nomor Premium:</strong> ${nomorPremium}</div>`;
+      if (linkGrup) previewContainer.innerHTML += `<div class="preview-entry"><strong>Link Grup:</strong> ${linkGrup}</div>`;
+      if (idGrup) previewContainer.innerHTML += `<div class="preview-entry"><strong>ID Grup:</strong> ${idGrup}</div>`;
+
+      document.getElementById('preview-container').style.display = 'block';
     }
 
     function downloadImage() {
