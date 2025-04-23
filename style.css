@@ -42,17 +42,26 @@ input, select {
   width: 100%;
   box-sizing: border-box;
   background-color: #f9f9f9;
+  transition: 0.2s ease;
 }
 
 input:focus, select:focus {
   outline: none;
   border-color: #007aff;
   background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
+}
+
+.note {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #555;
+  font-style: italic;
 }
 
 button {
   margin-top: 20px;
-  padding: 12px;
+  padding: 12px 24px;
   border: none;
   border-radius: 16px;
   background-color: #25d366;
@@ -61,14 +70,12 @@ button {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s ease-in-out;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 button:hover {
   background-color: #1da955;
-}
-
-.note {
-  margin-top: 5px;
-  font-size: 13px;
-  color: #555;
 }
