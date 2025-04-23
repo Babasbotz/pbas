@@ -3,53 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Pembayaran</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <title>Struktur Pembayaran Kosong</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Invoice Pembayaran</h1>
-        <div class="form">
-            <label for="nama">Nama Pembeli:</label>
-            <input type="text" id="nama" placeholder="Masukkan Nama Pembeli">
-
-            <label for="produk">Produk:</label>
-            <select id="produk">
-                <option value="Premium User">Premium User</option>
-                <option value="Sewabot Basic">Sewabot Basic</option>
-                <option value="Sewabot Plus">Sewabot Plus</option>
-                <option value="Sewabot VVIP">Sewabot VVIP</option>
-            </select>
-
-            <label for="durasi">Durasi:</label>
-            <input type="text" id="durasi" placeholder="Masukkan Durasi (misalnya 30 hari)">
-
-            <label for="tanggal">Tanggal Pembelian:</label>
-            <input type="date" id="tanggal">
-
-            <label for="payment">Payment Method:</label>
-            <select id="payment">
-                <option value="Dana">Dana</option>
-                <option value="Qris">Qris</option>
-                <option value="Gopay">Gopay</option>
-            </select>
-
-            <button id="generate">Buat Invoice</button>
-        </div>
-
-        <div id="invoice">
-            <h2>Invoice</h2>
-            <p><strong>Nama Pembeli:</strong> <span id="invoice-nama"></span></p>
-            <p><strong>Produk:</strong> <span id="invoice-produk"></span></p>
-            <p><strong>Durasi:</strong> <span id="invoice-durasi"></span></p>
-            <p><strong>Tanggal Pembelian:</strong> <span id="invoice-tanggal"></span></p>
-            <p><strong>Metode Pembayaran:</strong> <span id="invoice-payment"></span></p>
-        </div>
-
-        <button id="save-image">Simpan Invoice sebagai Gambar</button>
-    </div>
-
-    <script src="script.js"></script>
+    <table class="payment-table">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Produk</th>
+                <th>Durasi</th>
+                <th>Tanggal Pembayaran</th>
+                <th>Payment</th>
+                <th>Harga</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- Tambahkan baris kosong lainnya jika diperlukan -->
+        </tbody>
+    </table>
 </body>
 </html>
