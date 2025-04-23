@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h2>Form Pembayaran</h2>
-        <form>
+        <form id="payment-form">
             <div class="form-group">
                 <label for="nama">Nama</label>
                 <input type="text" id="nama" placeholder="Masukkan Nama">
@@ -35,6 +35,37 @@
                 <input type="number" id="harga" placeholder="Masukkan Harga">
             </div>
         </form>
+
+        <button type="button" id="save-btn">Simpan Gambar</button>
+        <button type="button" id="print-btn">Print</button>
     </div>
+
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script>
+        // Fungsi untuk menyimpan form sebagai gambar
+        document.getElementById('save-btn').addEventListener('click', function() {
+            html2canvas(document.getElementById('payment-form')).then(function(canvas) {
+                // Simpan canvas sebagai gambar
+                const imageUrl = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.href = imageUrl;
+                link.download = 'form_pembayaran.png';
+                link.click();
+            });
+        });
+
+        // Fungsi untuk mencetak form
+        document.getElementById('print-btn').addEventListener('click', function() {
+            const content = document.getElementById('payment-form');
+            const printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Print Form Pembayaran</title></head><body>');
+            printWindow.document.write(content.innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
 </body>
 </html>
