@@ -72,16 +72,26 @@ select:focus {
   transition: 0.3s;
 }
 
-.btn.save {
-  background-color: #4caf50;
-}
-
 .btn.print {
   background-color: #2196f3;
 }
 
-.btn:hover {
-  opacity: 0.9;
+.btn-img {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-img img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.btn-img:hover img {
+  transform: scale(1.05);
 }
 
 .hidden {
