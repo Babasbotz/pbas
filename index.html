@@ -31,7 +31,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
       box-sizing: border-box;
     }
-    h2, h4 {
+    h2 {
       text-align: center;
       color: #007BFF;
       margin-bottom: 1rem;
@@ -52,7 +52,8 @@
     .note {
       font-size: 0.85rem;
       color: #999;
-      margin-top: 0.4rem;
+      margin-top: 0.5rem;
+      white-space: pre-line;
     }
     .btn {
       margin-top: 1.5rem;
@@ -84,8 +85,8 @@
       margin-top: 1rem;
     }
     .qr-link img {
-      width: 200px;
-      max-width: 100%;
+      width: 100%;
+      max-width: 250px;
       border-radius: 12px;
     }
   </style>
@@ -115,12 +116,12 @@
       <option value="Sewabot Grup VVIP">Sewabot Grup VVIP</option>
     </select>
 
-    <div id="note" class="note"></div>
-
     <label for="durasi">Durasi</label>
     <select id="durasi" onchange="updateHarga()">
       <option value="">-- Pilih Durasi --</option>
     </select>
+
+    <div id="note" class="note"></div>
 
     <label for="harga">Harga</label>
     <input type="text" id="harga" readonly>
@@ -159,7 +160,7 @@
           "1 Bulan": "Rp 15.000",
           "2 Bulan": "Rp 30.000"
         },
-        note: "ⓘ Maksimal 200 member ⓘ Tidak Dapat Premium User"
+        note: "ⓘ Maksimal 200 member\nⓘ Tidak Dapat Premium User"
       },
       "Sewabot Grup Plus": {
         harga: {
@@ -167,7 +168,7 @@
           "1 Bulan": "Rp 25.000",
           "2 Bulan": "Rp 45.000"
         },
-        note: "ⓘ Maksimal 500 member ⓘ Gratis Premium User untuk 1 orang"
+        note: "ⓘ Maksimal 500 member\nⓘ Gratis Premium User untuk 1 orang"
       },
       "Sewabot Grup VVIP": {
         harga: {
@@ -175,7 +176,7 @@
           "1 Bulan": "Rp 35.000",
           "2 Bulan": "Rp 65.000"
         },
-        note: "ⓘ Maksimal 250 member ⓘ Gratis Premium User untuk 1 orang ⓘ Semua member premium di grup"
+        note: "ⓘ Maksimal 250 member\nⓘ Gratis Premium User untuk 1 orang\nⓘ Semua member premium di grup"
       }
     };
 
