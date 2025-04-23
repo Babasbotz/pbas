@@ -6,26 +6,25 @@
   <title>Pembayaran Produk</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #f2f2f2;
       margin: 0;
       padding: 0;
     }
 
     .payment-container {
-      max-width: 600px;
-      margin: 50px auto;
+      max-width: 500px;
+      margin: 40px auto;
       background-color: #ffffff;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
       text-align: center;
-      color: #333;
-      font-size: 24px;
-      margin-bottom: 20px;
+      color: #444;
+      margin-bottom: 30px;
     }
 
     .form-group {
@@ -33,35 +32,47 @@
     }
 
     label {
-      font-weight: bold;
-      color: #333;
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
     }
 
     input, select {
       width: 100%;
-      padding: 12px;
+      padding: 10px 12px;
       border-radius: 6px;
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
       font-size: 16px;
-      color: #333;
-      background-color: #f9f9f9;
+      background-color: #fafafa;
+      transition: all 0.2s ease;
     }
 
-    button.save-btn {
+    input:focus, select:focus {
+      border-color: #007bff;
+      background-color: #fff;
+      outline: none;
+    }
+
+    .save-btn {
       width: 100%;
-      padding: 15px;
-      background-color: #4CAF50;
-      color: white;
+      padding: 12px;
+      background-color: #007bff;
+      color: #fff;
       border: none;
       border-radius: 6px;
-      font-size: 18px;
+      font-size: 17px;
+      font-weight: bold;
       cursor: pointer;
+      margin-top: 10px;
     }
 
-    button.save-btn:hover {
-      background-color: #45a049;
+    .save-btn:hover {
+      background-color: #0056b3;
+    }
+
+    canvas {
+      display: none;
     }
   </style>
 </head>
@@ -71,12 +82,12 @@
     <form id="payment-form">
       <div class="form-group">
         <label for="name">Nama</label>
-        <input type="text" id="name" name="name" required placeholder="Masukkan nama Anda" />
+        <input type="text" id="name" placeholder="Masukkan nama Anda" required>
       </div>
 
       <div class="form-group">
         <label for="product">Produk</label>
-        <select id="product" name="product" required>
+        <select id="product" required>
           <option value="Premium User">Premium User</option>
           <option value="Sewabot Grup">Sewabot Grup</option>
         </select>
@@ -84,12 +95,12 @@
 
       <div class="form-group">
         <label for="duration">Durasi</label>
-        <input type="text" id="duration" name="duration" required placeholder="Contoh: 3 bulan" />
+        <input type="text" id="duration" placeholder="Contoh: 3 Bulan" required>
       </div>
 
       <div class="form-group">
         <label for="payment">Metode Pembayaran</label>
-        <select id="payment" name="payment" required>
+        <select id="payment" required>
           <option value="Dana">Dana</option>
           <option value="QRIS">QRIS</option>
           <option value="Gopay">Gopay</option>
@@ -98,17 +109,17 @@
 
       <div class="form-group">
         <label for="price">Harga</label>
-        <input type="text" id="price" name="price" required placeholder="Contoh: Rp 30.000" />
+        <input type="text" id="price" placeholder="Contoh: Rp 50.000" required>
       </div>
 
-      <button type="button" class="save-btn" onclick="generateAndDownload()">Simpan & Buat Bukti</button>
+      <button type="button" class="save-btn" onclick="generateReceipt()">Simpan & Unduh Bukti</button>
     </form>
   </div>
 
-  <canvas id="payment-canvas" width="600" height="400" style="display: none;"></canvas>
+  <canvas id="payment-canvas" width="600" height="400"></canvas>
 
   <script>
-    function generateAndDownload() {
+    function generateReceipt() {
       const name = document.getElementById("name").value;
       const product = document.getElementById("product").value;
       const duration = document.getElementById("duration").value;
@@ -116,40 +127,43 @@
       const price = document.getElementById("price").value;
 
       if (!name || !product || !duration || !payment || !price) {
-        alert("Mohon lengkapi semua data.");
+        alert("Mohon lengkapi semua kolom.");
         return;
       }
 
       const canvas = document.getElementById("payment-canvas");
       const ctx = canvas.getContext("2d");
 
-      // Bersihkan canvas
-      ctx.fillStyle = "#fff";
+      // Clear & background
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Teks bukti pembayaran
-      ctx.fillStyle = "#000";
-      ctx.font = "20px Arial";
-      ctx.fillText("Bukti Pembayaran", 20, 30);
+      // Header
+      ctx.fillStyle = "#007bff";
+      ctx.fillRect(0, 0, canvas.width, 60);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 24px Arial";
+      ctx.fillText("Bukti Pembayaran", 20, 38);
 
+      // Detail Text
+      ctx.fillStyle = "#333";
       ctx.font = "16px Arial";
-      ctx.fillText("Nama: " + name, 20, 70);
-      ctx.fillText("Produk: " + product, 20, 100);
-      ctx.fillText("Durasi: " + duration, 20, 130);
-      ctx.fillText("Metode Pembayaran: " + payment, 20, 160);
-      ctx.fillText("Harga: " + price, 20, 190);
+      let y = 90;
+      ctx.fillText("Nama: " + name, 20, y);
+      ctx.fillText("Produk: " + product, 20, y += 30);
+      ctx.fillText("Durasi: " + duration, 20, y += 30);
+      ctx.fillText("Metode Pembayaran: " + payment, 20, y += 30);
+      ctx.fillText("Harga: " + price, 20, y += 30);
 
-      ctx.beginPath();
-      ctx.moveTo(20, 220);
-      ctx.lineTo(580, 220);
-      ctx.stroke();
+      // Footer
+      ctx.fillStyle = "#888";
+      ctx.font = "italic 14px Arial";
+      ctx.fillText("Terima kasih telah melakukan pembayaran.", 20, y + 50);
 
-      ctx.fillText("Terima kasih telah melakukan pembayaran!", 20, 260);
-
-      // Convert ke gambar dan otomatis download
-      const imageURL = canvas.toDataURL("image/jpeg");
+      // Convert to image and auto-download
+      const image = canvas.toDataURL("image/jpeg");
       const link = document.createElement("a");
-      link.href = imageURL;
+      link.href = image;
       link.download = "bukti-pembayaran.jpg";
       link.click();
     }
