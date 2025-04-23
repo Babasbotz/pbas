@@ -77,7 +77,7 @@
     <form id="payment-form">
       <div class="form-group">
         <label for="name">Nama</label>
-        <input type="text" id="name" placeholder="Masukkan nama Anda" required>
+        <input type="text" id="name" required>
       </div>
 
       <div class="form-group">
@@ -90,7 +90,7 @@
 
       <div class="form-group">
         <label for="duration">Durasi</label>
-        <input type="text" id="duration" placeholder="Contoh: 1 Bulan" required>
+        <input type="text" id="duration" required>
       </div>
 
       <div class="form-group">
@@ -104,7 +104,12 @@
 
       <div class="form-group">
         <label for="price">Harga</label>
-        <input type="text" id="price" placeholder="Contoh: Rp 20.000" required>
+        <input type="text" id="price" required>
+      </div>
+
+      <div class="form-group">
+        <label for="logo">Upload Logo (Opsional)</label>
+        <input type="file" id="logo" accept="image/*">
       </div>
 
       <button type="button" class="save-btn" onclick="generateInvoice()">Simpan & Unduh Invoice</button>
@@ -120,16 +125,17 @@
       const duration = document.getElementById("duration").value;
       const payment = document.getElementById("payment").value;
       const price = document.getElementById("price").value;
+      const logoInput = document.getElementById("logo");
+      const canvas = document.getElementById("payment-canvas");
+      const ctx = canvas.getContext("2d");
 
       if (!name || !product || !duration || !payment || !price) {
         alert("Harap lengkapi semua kolom.");
         return;
       }
 
-      const canvas = document.getElementById("payment-canvas");
-      const ctx = canvas.getContext("2d");
-
-      // Background
+      // Reset canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -140,11 +146,12 @@
       ctx.font = "bold 32px Arial";
       ctx.fillText("INVOICE PEMBAYARAN", 30, 50);
 
-      // Box layout
+      // Kotak invoice
       ctx.strokeStyle = "#ccc";
       ctx.lineWidth = 2;
       ctx.strokeRect(25, 100, 850, 400);
 
+      // Data isi invoice
       ctx.fillStyle = "#000";
       ctx.font = "20px Arial";
       let y = 140;
@@ -154,19 +161,36 @@
       ctx.fillText("Payment", 50, y += 40);ctx.fillText(": " + payment, 250, y);
       ctx.fillText("Harga", 50, y += 40);  ctx.fillText(": " + price, 250, y);
 
-      // Garis pembatas
+      // Garis bawah
       ctx.beginPath();
       ctx.moveTo(50, y + 30);
       ctx.lineTo(850, y + 30);
       ctx.strokeStyle = "#ccc";
       ctx.stroke();
 
-      // Footer
+      // Ucapan
       ctx.fillStyle = "#555";
       ctx.font = "italic 18px Arial";
-      ctx.fillText("Terima kasih telah melakukan pembayaran. Simpan invoice ini sebagai bukti yang sah.", 50, y + 70);
+      ctx.fillText("Terima kasih sudah order di Shina - Ai, simpan invoice ini agar bisa claim garansi jika botnya mati.", 50, y + 70);
 
-      // Unduh gambar
+      // Tambahkan logo jika ada
+      if (logoInput.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const logoImg = new Image();
+          logoImg.onload = function () {
+            ctx.drawImage(logoImg, 720, 20, 140, 40); // Gambar logo di pojok kanan atas
+            downloadInvoice(canvas);
+          };
+          logoImg.src = event.target.result;
+        };
+        reader.readAsDataURL(logoInput.files[0]);
+      } else {
+        downloadInvoice(canvas);
+      }
+    }
+
+    function downloadInvoice(canvas) {
       const image = canvas.toDataURL("image/jpeg", 1.0);
       const link = document.createElement("a");
       link.href = image;
