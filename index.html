@@ -7,49 +7,47 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="iphone-wrapper">
-    <div class="screen">
-      <h2>Pembayaran</h2>
-      <form id="paymentForm">
-        <label for="name">Nama Pembeli</label>
-        <input type="text" id="name" placeholder="Masukkan nama..." required />
+  <div class="form-container">
+    <h2>Pembayaran</h2>
+    <form id="paymentForm">
+      <label for="name">Nama Pembeli</label>
+      <input type="text" id="name" placeholder="Masukkan nama..." required />
 
-        <label for="number">Nomor Pembeli</label>
-        <input type="tel" id="number" placeholder="08xxxxxxxxxx" required />
+      <label for="number">Nomor Pembeli</label>
+      <input type="tel" id="number" placeholder="08xxxxxxxxxx" required />
 
-        <label for="product">Produk</label>
-        <select id="product" onchange="showDurationOptions()" required>
-          <option value="">-- Pilih Produk --</option>
-          <option value="Premium User">Premium User</option>
-          <option value="Sewabot Basic">Sewabot Basic</option>
-          <option value="Sewabot Plus">Sewabot Plus</option>
-          <option value="Sewabot VVIP">Sewabot VVIP</option>
+      <label for="product">Produk</label>
+      <select id="product" onchange="showDurationOptions()" required>
+        <option value="">-- Pilih Produk --</option>
+        <option value="Premium User">Premium User</option>
+        <option value="Sewabot Basic">Sewabot Basic</option>
+        <option value="Sewabot Plus">Sewabot Plus</option>
+        <option value="Sewabot VVIP">Sewabot VVIP</option>
+      </select>
+
+      <div id="duration" style="display: none;">
+        <label for="durationSelect">Durasi (Premium User)</label>
+        <select id="durationSelect">
+          <option value="15 Hari">15 Hari - Rp 8.000</option>
+          <option value="1 Bulan">1 Bulan - Rp 15.000</option>
+          <option value="2 Bulan">2 Bulan - Rp 30.000</option>
+          <option value="1 Tahun">1 Tahun - Rp 60.000</option>
+          <option value="Permanent">Permanent - Rp 100.000</option>
         </select>
+      </div>
 
-        <div id="duration" style="display: none;">
-          <label for="durationSelect">Durasi (Premium User)</label>
-          <select id="durationSelect">
-            <option value="15 Hari">15 Hari - Rp 8.000</option>
-            <option value="1 Bulan">1 Bulan - Rp 15.000</option>
-            <option value="2 Bulan">2 Bulan - Rp 30.000</option>
-            <option value="1 Tahun">1 Tahun - Rp 60.000</option>
-            <option value="Permanent">Permanent - Rp 100.000</option>
-          </select>
-        </div>
+      <label for="payment">Metode Pembayaran</label>
+      <select id="payment" onchange="showPaymentNote()" required>
+        <option value="">-- Pilih Metode --</option>
+        <option value="Qris">Qris</option>
+        <option value="Dana">Dana</option>
+        <option value="Gopay">Gopay</option>
+      </select>
 
-        <label for="payment">Metode Pembayaran</label>
-        <select id="payment" onchange="showPaymentNote()" required>
-          <option value="">-- Pilih Metode --</option>
-          <option value="Qris">Qris</option>
-          <option value="Dana">Dana</option>
-          <option value="Gopay">Gopay</option>
-        </select>
+      <div id="paymentNote" class="note"></div>
 
-        <div id="paymentNote" class="note"></div>
-
-        <button type="submit">Bayar via WhatsApp</button>
-      </form>
-    </div>
+      <button type="submit">Bayar via WhatsApp</button>
+    </form>
   </div>
 
   <script>
