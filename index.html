@@ -18,13 +18,24 @@
         <input type="tel" id="number" placeholder="08xxxxxxxxxx" required />
 
         <label for="product">Produk</label>
-        <select id="product" required>
+        <select id="product" onchange="showDurationOptions()" required>
           <option value="">-- Pilih Produk --</option>
           <option value="Premium User">Premium User</option>
           <option value="Sewabot Basic">Sewabot Basic</option>
           <option value="Sewabot Plus">Sewabot Plus</option>
           <option value="Sewabot VVIP">Sewabot VVIP</option>
         </select>
+
+        <div id="duration" style="display: none;">
+          <label for="durationSelect">Durasi (Premium User)</label>
+          <select id="durationSelect">
+            <option value="15 Hari">15 Hari - Rp 8.000</option>
+            <option value="1 Bulan">1 Bulan - Rp 15.000</option>
+            <option value="2 Bulan">2 Bulan - Rp 30.000</option>
+            <option value="1 Tahun">1 Tahun - Rp 60.000</option>
+            <option value="Permanent">Permanent - Rp 100.000</option>
+          </select>
+        </div>
 
         <label for="payment">Metode Pembayaran</label>
         <select id="payment" onchange="showPaymentNote()" required>
@@ -36,20 +47,41 @@
 
         <div id="paymentNote" class="note"></div>
 
+        <div id="paymentDetails" class="note"></div>
+
         <button type="submit">Bayar via WhatsApp</button>
       </form>
     </div>
   </div>
 
   <script>
+    function showDurationOptions() {
+      const product = document.getElementById("product").value;
+      const durationDiv = document.getElementById("duration");
+
+      if (product === "Premium User") {
+        durationDiv.style.display = "block";
+      } else {
+        durationDiv.style.display = "none";
+      }
+    }
+
     function showPaymentNote() {
       const payment = document.getElementById("payment").value;
-      const note = document.getElementById("paymentNote");
+      const paymentNote = document.getElementById("paymentNote");
 
       if (payment === "Dana" || payment === "Gopay") {
-        note.textContent = "Transfer ke: 08988189120 a.n. Penjual";
+        document.getElementById("paymentDetails").textContent = "Transfer ke: 08988189120 a.n. Penjual";
       } else {
-        note.textContent = "";
+        document.getElementById("paymentDetails").textContent = "";
+      }
+
+      if (payment === "Dana") {
+        paymentNote.textContent = "Nomor Dana: 08988189120";
+      } else if (payment === "Gopay") {
+        paymentNote.textContent = "Nomor Gopay: 08988189120";
+      } else {
+        paymentNote.textContent = "";
       }
     }
 
@@ -60,8 +92,9 @@
       const number = document.getElementById("number").value;
       const product = document.getElementById("product").value;
       const payment = document.getElementById("payment").value;
+      const duration = document.getElementById("durationSelect") ? document.getElementById("durationSelect").value : "";
 
-      const message = `Halo! Saya ingin membeli produk:\n\nNama: ${name}\nNomor: ${number}\nProduk: ${product}\nMetode Pembayaran: ${payment}`;
+      const message = `Halo! Saya ingin membeli produk:\n\nNama: ${name}\nNomor: ${number}\nProduk: ${product}\nDurasi: ${duration}\nMetode Pembayaran: ${payment}`;
       const encodedMessage = encodeURIComponent(message);
 
       const waLink = `https://wa.me/6285119201210?text=${encodedMessage}`;
