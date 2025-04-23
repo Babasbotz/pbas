@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Website Pembayaran</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+
+    h2 {
+      text-align: center;
+      color: #007aff;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      display: block;
+    }
+
+    select,
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007aff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #005ee2;
+    }
+
+    .whatsapp-button {
+      background-color: #25D366;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      padding: 12px;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      align-items: center;
+    }
+
+    .whatsapp-button:hover {
+      background-color: #128C7E;
+    }
+
+    .whatsapp-button img {
+      width: 20px;
+      margin-right: 10px;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #555;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .qr-image {
+      width: 100%;
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+    }
+
+    .qr-image img {
+      max-width: 80%;
+      border-radius: 10px;
+    }
+
+    #durasi-group {
+      display: none;
+    }
+
+    #info-durasi {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Pembayaran Struktur</h2>
+
+  <div class="form-group">
+    <label for="produk">Pilih Produk</label>
+    <select id="produk" onchange="onProdukChange()">
+      <option value="Premium User">Premium User</option>
+      <option value="Sewabot Grup Basic">Sewabot Grup Basic</option>
+      <option value="Sewabot Plus">Sewabot Plus</option>
+      <option value="Sewabot Grup VVIP">Sewabot Grup VVIP</option>
+    </select>
+  </div>
+
+  <div class="form-group" id="durasi-group">
+    <label for="durasi">Pilih Durasi</label>
+    <select id="durasi" onchange="onDurasiChange()"></select>
+    <div id="info-durasi"></div>
+  </div>
+
+  <div class="form-group">
+    <label for="payment">Metode Pembayaran</label>
+    <select id="payment" onchange="handlePaymentChange()">
+      <option value="Dana">Dana (08988189120)</option>
+      <option value="Gopay">Gopay (08988189120)</option>
+      <option value="QRIS">QRIS</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="harga">Harga</label>
+    <input type="text" id="harga" placeholder="Masukkan harga produk" />
+  </div>
+
+  <button class="button" onclick="generatePayment()">Proses Pembayaran</button>
+
+  <div id="whatsappButton" style="display: none;">
+    <a id="whatsappLink" href="#" class="whatsapp-button" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+      Hubungi Penjual
+    </a>
+  </div>
+
+  <div id="qrisImage" class="qr-image">
+    <p>Silakan lakukan pembayaran menggunakan QRIS dengan scan kode berikut:</p>
+    <img src="https://i.ibb.co.com/Q34ts6MW/IMG-20250205-WA0004-1.jpg" alt="QRIS" />
+  </div>
+
+  <div class="note">
+    Pastikan Anda membayar sesuai metode yang dipilih dan konfirmasi lewat WhatsApp setelah transfer.
+  </div>
+</div>
+
+<script>
+  const durasiOptions = {
+    "Premium User": [
+      { label: "15 Hari – Rp 8.000", value: 8000 },
+      { label: "1 Bulan – Rp 15.000", value: 15000 },
+      { label: "2 Bulan – Rp 30.000", value: 30000 },
+      { label: "1 Tahun – Rp 60.000", value: 60000 },
+      { label: "Permanent – Rp 100.000", value: 100000 }
+    ],
+    "Sewabot Grup Basic": [
+      { label: "15 Hari – Rp 10.000", value: 10000 },
+      { label: "1 Bulan – Rp 15.000", value: 15000 },
+      { label: "2 Bulan – Rp 30.000", value: 30000 }
+    ],
+    "Sewabot Plus": [
+      { label: "15 Hari – Rp 15.000", value: 15000 },
+      { label: "1 Bulan – Rp 25.000", value: 25000 },
+      { label: "2 Bulan – Rp 45.000", value: 45000 }
+    ],
+    "Sewabot Grup VVIP": [
+      { label: "15 Hari – Rp 20.000", value: 20000 },
+      { label: "1 Bulan – Rp 35.000", value: 35000 },
+      { label: "2 Bulan – Rp 65.000", value: 65000 }
+    ]
+  };
+
+  function onProdukChange() {
+    const produk = document.getElementById("produk").value;
+    const durasiGroup = document.getElementById("durasi-group");
+    const durasiSelect = document.getElementById("durasi");
+    const hargaInput = document.getElementById("harga");
+    const info = document.getElementById("info-durasi");
+
+    durasiSelect.innerHTML = "";
+    hargaInput.value = "";
+    hargaInput.readOnly = false;
+    info.innerHTML = "";
+
+    if (durasiOptions[produk]) {
+      durasiOptions[produk].forEach(opt => {
+        const option = document.createElement("option");
+        option.value = opt.value;
+        option.textContent = opt.label;
+        durasiSelect.appendChild(option);
+      });
+
+      durasiGroup.style.display = "block";
+      hargaInput.readOnly = true;
+
+      if (produk === "Sewabot Grup Basic") {
+        info.innerHTML = "ⓘ Maksimal 200 member<br>ⓘ Tidak Dapat Premium User";
+      }
+
+      if (produk === "Sewabot Plus") {
+        info.innerHTML = "ⓘ Maksimal 500 member<br>ⓘ Gratis Premium User untuk 1 orang";
+      }
+
+      if (produk === "Sewabot Grup VVIP") {
+        info.innerHTML = "ⓘ Maksimal 250 member<br>ⓘ Gratis Premium User untuk 1 orang<br>ⓘ Semua member berstatus premium di dalam grup (tidak bisa menggunakan di pribadi bot)";
+      }
+    } else {
+      durasiGroup.style.display = "none";
+    }
+  }
+
+  function onDurasiChange() {
+    const durasi = document.getElementById("durasi").value;
+    document.getElementById("harga").value = `Rp ${parseInt(durasi).toLocaleString("id-ID")}`;
+  }
+
+  function handlePaymentChange() {
+    const payment = document.getElementById("payment").value;
+    document.getElementById("qrisImage").style.display = (payment === "QRIS") ? "block" : "none";
+  }
+
+  function generatePayment() {
+    const produk = document.getElementById("produk").value;
+    const payment = document.getElementById("payment").value;
+    const harga = document.getElementById("harga").value;
+
+    if (!harga) {
+      alert("Harap masukkan atau pilih harga produk!");
+      return;
+    }
+
+    const nomor = "6285119201210";
+    const message = `Halo, saya ingin membayar untuk produk *${produk}* dengan harga *${harga}*. Metode pembayaran: *${payment}*.`;
+    const whatsappLink = `https://wa.me/${nomor}?text=${encodeURIComponent(message)}`;
+
+    document.getElementById("whatsappLink").href = whatsappLink;
+    document.getElementById("whatsappButton").style.display = "block";
+  }
+
+  onProdukChange();
+</script>
+
+</body>
+  </html>
+  
