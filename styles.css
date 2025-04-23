@@ -1,7 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
     background-color: #f4f4f4;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
 }
 
 .payment-table {
@@ -10,23 +21,27 @@ body {
     margin: 20px 0;
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .payment-table th, .payment-table td {
-    padding: 10px;
+    padding: 12px 15px;
     text-align: left;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .payment-table th {
     background-color: #4CAF50;
     color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .payment-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f9f9f9;
 }
 
 .payment-table tr:hover {
-    background-color: #ddd;
+    background-color: #f1f1f1;
 }
