@@ -87,6 +87,7 @@
       max-height: 120px;
       object-fit: contain;
       margin: 0 auto 10px auto;
+      border-radius: 6px; /* Menjaga logo tetap kotak */
     }
 
     .logo-upload {
@@ -198,7 +199,7 @@
       html2canvas(area).then(canvas => {
         const link = document.createElement('a');
         link.download = 'struktur-pembayaran.png';
-        link.href = canvas.toDataURL();
+        link.href = canvas.toDataURL('image/png');
         link.click();
       });
     }
