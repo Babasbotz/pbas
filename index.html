@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pembayaran Produk</title>
+  <title>Invoice Pembayaran</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -146,12 +146,12 @@
       ctx.font = "bold 32px Arial";
       ctx.fillText("INVOICE PEMBAYARAN", 30, 50);
 
-      // Kotak invoice
+      // Box
       ctx.strokeStyle = "#ccc";
       ctx.lineWidth = 2;
       ctx.strokeRect(25, 100, 850, 400);
 
-      // Data isi invoice
+      // Isi
       ctx.fillStyle = "#000";
       ctx.font = "20px Arial";
       let y = 140;
@@ -168,18 +168,31 @@
       ctx.strokeStyle = "#ccc";
       ctx.stroke();
 
-      // Ucapan
+      // Footer
       ctx.fillStyle = "#555";
       ctx.font = "italic 18px Arial";
       ctx.fillText("Terima kasih sudah order di Shina - Ai, simpan invoice ini agar bisa claim garansi jika botnya mati.", 50, y + 70);
 
-      // Tambahkan logo jika ada
+      // Logo bulat jika ada
       if (logoInput.files.length > 0) {
         const reader = new FileReader();
         reader.onload = function (event) {
           const logoImg = new Image();
           logoImg.onload = function () {
-            ctx.drawImage(logoImg, 720, 20, 140, 40); // Gambar logo di pojok kanan atas
+            const size = 80;
+            const cx = 820, cy = 60;
+
+            // Buat bulat
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+
+            // Gambar logo
+            ctx.drawImage(logoImg, cx - size / 2, cy - size / 2, size, size);
+            ctx.restore();
+
             downloadInvoice(canvas);
           };
           logoImg.src = event.target.result;
