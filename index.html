@@ -15,46 +15,45 @@
         <input type="text" id="nama" name="nama" required>
 
         <label for="produk">Pilih Produk:</label>
-        <select id="produk" name="produk" required>
-            <option value="">--Pilih Produk--</option>
-            <option value="premium">Premium User</option>
-            <option value="basic">Sewabot Basic</option>
-            <option value="plus">Sewabot Plus</option>
-            <option value="vip">Sewabot VVIP</option>
-        </select>
+        <ul id="produk">
+            <li>
+                <input type="radio" id="premium" name="produk" value="premium" />
+                <label for="premium">Premium User</label>
+            </li>
+            <li>
+                <input type="radio" id="basic" name="produk" value="basic" />
+                <label for="basic">Sewabot Basic</label>
+            </li>
+            <li>
+                <input type="radio" id="plus" name="produk" value="plus" />
+                <label for="plus">Sewabot Plus</label>
+            </li>
+            <li>
+                <input type="radio" id="vip" name="produk" value="vip" />
+                <label for="vip">Sewabot VVIP</label>
+            </li>
+        </ul>
 
         <!-- Kolom Dinamis untuk Produk -->
-        <div class="dynamic-field">
-            <input type="radio" id="premium" name="produk" value="premium" class="produk" />
-            <label for="premium">Premium User</label>
-            <div class="premium-user">
-                <label for="nomor-premium">Nomor Premium:</label>
-                <input type="text" id="nomor-premium" name="nomor-premium">
-            </div>
+        <div class="dynamic-field premium-user">
+            <label for="nomor-premium">Nomor Premium:</label>
+            <input type="text" id="nomor-premium" name="nomor-premium">
         </div>
 
-        <div class="dynamic-field">
-            <input type="radio" id="plus" name="produk" value="plus" class="produk" />
-            <label for="plus">Sewabot Plus</label>
-            <div class="sewabot-plus">
-                <label for="nomor-premium">Nomor Premium:</label>
-                <input type="text" id="nomor-premium" name="nomor-premium">
-                <label for="link-grup">Link Grup:</label>
-                <input type="text" id="link-grup" name="link-grup">
-            </div>
+        <div class="dynamic-field sewabot-plus">
+            <label for="nomor-premium">Nomor Premium:</label>
+            <input type="text" id="nomor-premium" name="nomor-premium">
+            <label for="link-grup">Link Grup:</label>
+            <input type="text" id="link-grup" name="link-grup">
         </div>
 
-        <div class="dynamic-field">
-            <input type="radio" id="vip" name="produk" value="vip" class="produk" />
-            <label for="vip">Sewabot VVIP</label>
-            <div class="sewabot-vvip">
-                <label for="premium-user">Premium User:</label>
-                <input type="text" id="premium-user" name="premium-user">
-                <label for="id-grup">ID Grup:</label>
-                <input type="text" id="id-grup" name="id-grup">
-                <label for="link-grup">Link Grup:</label>
-                <input type="text" id="link-grup" name="link-grup">
-            </div>
+        <div class="dynamic-field sewabot-vvip">
+            <label for="premium-user">Premium User:</label>
+            <input type="text" id="premium-user" name="premium-user">
+            <label for="id-grup">ID Grup:</label>
+            <input type="text" id="id-grup" name="id-grup">
+            <label for="link-grup">Link Grup:</label>
+            <input type="text" id="link-grup" name="link-grup">
         </div>
 
         <div class="dynamic-field">
