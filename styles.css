@@ -20,7 +20,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
-    border: 2px solid #ddd;  /* Bingkai di sekitar form */
+    border: 2px solid #ddd;
 }
 
 h2 {
@@ -56,4 +56,20 @@ h2 {
 
 .form-group input[type="date"] {
     font-family: Arial, sans-serif;
+}
+
+button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #45a049;
 }
