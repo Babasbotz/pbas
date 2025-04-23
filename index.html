@@ -191,39 +191,6 @@
           durasiSelect.innerHTML += `<option value="${durasi}">${durasi}</option>`;
         });
         noteDiv.innerText = durasiData[produk].note || "";
-      }
-    }
-
-    function updateHarga() {
-      const produk = document.getElementById("produk").value;
-      const durasi = document.getElementById("durasi").value;
-      const harga = durasiData[produk]?.harga[durasi] || "";
-      document.getElementById("harga").value = harga;
-    }
-
-    function toggleQR() {
-      const metode = document.getElementById("metode").value;
-      document.getElementById("qris").style.display = metode === "Qris" ? "block" : "none";
-    }
-
-    function kirimWhatsApp() {
-      const nama = document.getElementById("nama").value;
-      const nomor = document.getElementById("nomor").value;
-      const produk = document.getElementById("produk").value;
-      const durasi = document.getElementById("durasi").value;
-      const harga = document.getElementById("harga").value;
-      const metode = document.getElementById("metode").value;
-
-      const pesan = `Halo, saya ingin konfirmasi pembayaran:\n\nNama: ${nama}\nNomor WA: ${nomor}\nProduk: ${produk}\nDurasi: ${durasi}\nHarga: ${harga}\nMetode: ${metode}`;
-      window.open(`https://wa.me/6285119201210?text=${encodeURIComponent(pesan)}`);
-    }
-
-    function toggleDarkMode() {
-      const body = document.body;
-      const icon = document.getElementById("mode-icon");
-      body.classList.toggle("dark");
-      icon.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
-    }
-  </script>
-</body>
-</html>
+      } else {
+        noteDiv
+        
