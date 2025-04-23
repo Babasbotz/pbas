@@ -50,8 +50,14 @@ ul#produk li {
     margin: 8px 0;
 }
 
-ul#produk input[type="radio"] {
-    margin-right: 10px;
+ul#produk a {
+    text-decoration: none;
+    color: #007BFF;
+    cursor: pointer;
+}
+
+ul#produk a:hover {
+    text-decoration: underline;
 }
 
 button {
@@ -73,22 +79,7 @@ button:hover {
     margin-bottom: 15px;
 }
 
-input[type="radio"]:checked ~ .premium-user {
-    display: block;
-}
-
-input[type="radio"]:checked ~ .sewabot-plus {
-    display: block;
-}
-
-input[type="radio"]:checked ~ .sewabot-vvip {
-    display: block;
-}
-
-input[type="radio"]:checked ~ .durasi,
-input[type="radio"]:checked ~ .payment,
-input[type="radio"]:checked ~ .harga,
-input[type="radio"]:checked ~ .tanggal-pembelian {
+.dynamic-field.active {
     display: block;
 }
 
