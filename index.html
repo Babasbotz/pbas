@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      background-color: #f2f2f2;
+      background-color: #f0f0f0;
       margin: 0;
       padding: 0;
     }
@@ -15,56 +15,51 @@
     .payment-container {
       max-width: 500px;
       margin: 40px auto;
-      background-color: #ffffff;
+      background-color: #fff;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
       text-align: center;
-      color: #444;
-      margin-bottom: 30px;
+      color: #333;
+      margin-bottom: 25px;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 18px;
     }
 
     label {
-      display: block;
-      margin-bottom: 6px;
       font-weight: 600;
-      color: #333;
+      margin-bottom: 6px;
+      color: #444;
     }
 
     input, select {
-      width: 100%;
-      padding: 10px 12px;
+      padding: 12px;
       border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 16px;
-      background-color: #fafafa;
-      transition: all 0.2s ease;
-    }
-
-    input:focus, select:focus {
-      border-color: #007bff;
-      background-color: #fff;
-      outline: none;
+      background-color: #f9f9f9;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .save-btn {
+      margin-top: 10px;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background-color: #007bff;
-      color: #fff;
+      color: white;
       border: none;
       border-radius: 6px;
       font-size: 17px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 10px;
     }
 
     .save-btn:hover {
@@ -95,7 +90,7 @@
 
       <div class="form-group">
         <label for="duration">Durasi</label>
-        <input type="text" id="duration" placeholder="Contoh: 3 Bulan" required>
+        <input type="text" id="duration" placeholder="Contoh: 1 Bulan" required>
       </div>
 
       <div class="form-group">
@@ -109,14 +104,14 @@
 
       <div class="form-group">
         <label for="price">Harga</label>
-        <input type="text" id="price" placeholder="Contoh: Rp 50.000" required>
+        <input type="text" id="price" placeholder="Contoh: Rp 20.000" required>
       </div>
 
       <button type="button" class="save-btn" onclick="generateReceipt()">Simpan & Unduh Bukti</button>
     </form>
   </div>
 
-  <canvas id="payment-canvas" width="600" height="400"></canvas>
+  <canvas id="payment-canvas" width="800" height="500"></canvas>
 
   <script>
     function generateReceipt() {
@@ -127,41 +122,49 @@
       const price = document.getElementById("price").value;
 
       if (!name || !product || !duration || !payment || !price) {
-        alert("Mohon lengkapi semua kolom.");
+        alert("Harap lengkapi semua kolom.");
         return;
       }
 
       const canvas = document.getElementById("payment-canvas");
       const ctx = canvas.getContext("2d");
 
-      // Clear & background
+      // Latar belakang
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Header
       ctx.fillStyle = "#007bff";
-      ctx.fillRect(0, 0, canvas.width, 60);
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "bold 24px Arial";
-      ctx.fillText("Bukti Pembayaran", 20, 38);
+      ctx.fillRect(0, 0, canvas.width, 70);
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 28px Arial";
+      ctx.fillText("BUKTI PEMBAYARAN", 20, 45);
 
-      // Detail Text
-      ctx.fillStyle = "#333";
-      ctx.font = "16px Arial";
-      let y = 90;
-      ctx.fillText("Nama: " + name, 20, y);
-      ctx.fillText("Produk: " + product, 20, y += 30);
-      ctx.fillText("Durasi: " + duration, 20, y += 30);
-      ctx.fillText("Metode Pembayaran: " + payment, 20, y += 30);
-      ctx.fillText("Harga: " + price, 20, y += 30);
+      // Isi data
+      ctx.fillStyle = "#000";
+      ctx.font = "20px Arial";
+      let y = 100;
+      ctx.fillText("Nama               : " + name, 30, y);
+      ctx.fillText("Produk             : " + product, 30, y += 40);
+      ctx.fillText("Durasi             : " + duration, 30, y += 40);
+      ctx.fillText("Metode Pembayaran : " + payment, 30, y += 40);
+      ctx.fillText("Harga              : " + price, 30, y += 40);
+
+      // Garis pemisah
+      ctx.beginPath();
+      ctx.moveTo(30, y + 20);
+      ctx.lineTo(770, y + 20);
+      ctx.strokeStyle = "#ddd";
+      ctx.lineWidth = 1;
+      ctx.stroke();
 
       // Footer
-      ctx.fillStyle = "#888";
-      ctx.font = "italic 14px Arial";
-      ctx.fillText("Terima kasih telah melakukan pembayaran.", 20, y + 50);
+      ctx.fillStyle = "#555";
+      ctx.font = "italic 18px Arial";
+      ctx.fillText("Terima kasih telah melakukan pembayaran.", 30, y + 60);
 
-      // Convert to image and auto-download
-      const image = canvas.toDataURL("image/jpeg");
+      // Convert dan unduh JPG
+      const image = canvas.toDataURL("image/jpeg", 1.0);
       const link = document.createElement("a");
       link.href = image;
       link.download = "bukti-pembayaran.jpg";
