@@ -80,6 +80,22 @@
     button:hover {
       background: #1565c0;
     }
+
+    .checkbox-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .checkbox-container label {
+      font-weight: 600;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+    }
   </style>
 </head>
 <body>
@@ -94,13 +110,24 @@
 
       <div class="form-row">
         <label for="produk">Produk</label>
-        <select id="produk" onchange="updateFields()">
-          <option value="">-- Pilih Produk --</option>
-          <option value="premium">Premium User</option>
-          <option value="basic">Sewabot Basic</option>
-          <option value="plus">Sewabot Plus</option>
-          <option value="vvip">Sewabot VVIP</option>
-        </select>
+        <div class="checkbox-container">
+          <div>
+            <input type="checkbox" id="premium" onchange="updateFields()" />
+            <label for="premium">Premium User</label>
+          </div>
+          <div>
+            <input type="checkbox" id="basic" onchange="updateFields()" />
+            <label for="basic">Sewabot Basic</label>
+          </div>
+          <div>
+            <input type="checkbox" id="plus" onchange="updateFields()" />
+            <label for="plus">Sewabot Plus</label>
+          </div>
+          <div>
+            <input type="checkbox" id="vvip" onchange="updateFields()" />
+            <label for="vvip">Sewabot VVIP</label>
+          </div>
+        </div>
       </div>
 
       <div id="additional-fields"></div>
@@ -108,6 +135,11 @@
       <div class="form-row">
         <label for="durasi">Durasi</label>
         <input type="text" id="durasi" placeholder="Contoh: 1 Bulan" />
+      </div>
+
+      <div class="form-row">
+        <label for="tanggal">Tanggal Pembelian</label>
+        <input type="date" id="tanggal" />
       </div>
 
       <div class="form-row">
@@ -127,11 +159,16 @@
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
     function updateFields() {
-      const produk = document.getElementById('produk').value;
+      const produk = [];
+      if (document.getElementById('premium').checked) produk.push('premium');
+      if (document.getElementById('basic').checked) produk.push('basic');
+      if (document.getElementById('plus').checked) produk.push('plus');
+      if (document.getElementById('vvip').checked) produk.push('vvip');
+
       const fields = document.getElementById('additional-fields');
       fields.innerHTML = '';
 
-      if (produk === 'premium' || produk === 'plus' || produk === 'vvip') {
+      if (produk.includes('premium') || produk.includes('plus') || produk.includes('vvip')) {
         fields.innerHTML += `
           <div class="form-row">
             <label for="nomorPremium">Nomor Premium</label>
@@ -139,7 +176,7 @@
           </div>`;
       }
 
-      if (produk === 'basic' || produk === 'plus' || produk === 'vvip') {
+      if (produk.includes('basic') || produk.includes('plus') || produk.includes('vvip')) {
         fields.innerHTML += `
           <div class="form-row">
             <label for="linkGrup">Link Grup</label>
@@ -147,7 +184,7 @@
           </div>`;
       }
 
-      if (produk === 'vvip') {
+      if (produk.includes('vvip')) {
         fields.innerHTML += `
           <div class="form-row">
             <label for="idGrup">ID Grup</label>
