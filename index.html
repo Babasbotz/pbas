@@ -46,13 +46,25 @@
     <script>
         // Fungsi untuk menyimpan form sebagai gambar
         document.getElementById('save-btn').addEventListener('click', function() {
-            html2canvas(document.getElementById('payment-form'), {scrollX: 0, scrollY: -window.scrollY}).then(function(canvas) {
+            html2canvas(document.getElementById('payment-form'), {
+                logging: true,  // Menampilkan log di konsol untuk debugging
+                useCORS: true,  // Mengaktifkan CORS jika ada konten eksternal
+                allowTaint: true, // Membiarkan gambar atau elemen yang tidak memiliki CORS diambil
+                scrollX: 0, 
+                scrollY: -window.scrollY,
+                width: document.getElementById('payment-form').scrollWidth,
+                height: document.getElementById('payment-form').scrollHeight,
+                x: document.getElementById('payment-form').getBoundingClientRect().left,
+                y: document.getElementById('payment-form').getBoundingClientRect().top
+            }).then(function(canvas) {
                 // Simpan canvas sebagai gambar
                 const imageUrl = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 link.href = imageUrl;
-                link.download = 'form_pembayaran.png';
+                link.download = 'form_pembayaran.png'; // Nama file gambar
                 link.click();
+            }).catch(function(error) {
+                console.error('Error saving image:', error);
             });
         });
 
