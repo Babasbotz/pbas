@@ -1,54 +1,68 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Struktur Pembayaran Produk</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Pembayaran</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Form Pembayaran Produk</h1>
-        <form id="payment-form">
-            <label for="name">Nama</label>
-            <input type="text" id="name" name="name" required>
+  <div class="container">
+    <h1>Form Pembayaran Produk</h1>
+    <form id="payment-form">
+      <div class="form-group">
+        <label for="name">Nama</label>
+        <input type="text" id="name" required />
+      </div>
 
-            <label for="product">Pilih Produk</label>
-            <select id="product" name="product" required>
-                <option value="premium_user">Premium User</option>
-                <option value="sewabot_basic">Sewabot Basic</option>
-                <option value="sewabot_plus">Sewabot Plus</option>
-                <option value="sewabot_vvip">Sewabot VVIP</option>
-            </select>
+      <div class="form-group">
+        <label for="product">Produk</label>
+        <select id="product" required>
+          <option value="">-- Pilih Produk --</option>
+          <option value="premium_user">Premium User</option>
+          <option value="sewabot_basic">Sewabot Basic</option>
+          <option value="sewabot_plus">Sewabot Plus</option>
+          <option value="sewabot_vvip">Sewabot VVIP</option>
+        </select>
+      </div>
 
-            <div id="sewabot-group-link-container" class="optional-field">
-                <label for="group-link">Link Grup (Hanya untuk Sewabot)</label>
-                <input type="url" id="group-link" name="group-link">
-            </div>
+      <div class="form-group hidden" id="group-link-field">
+        <label for="group-link">Link Grup</label>
+        <input type="url" id="group-link" placeholder="https://chat.whatsapp.com/..." />
+      </div>
 
-            <label for="duration">Durasi</label>
-            <input type="number" id="duration" name="duration" min="1" required>
+      <div class="form-group">
+        <label for="duration">Durasi (hari)</label>
+        <input type="number" id="duration" min="1" required />
+      </div>
 
-            <label for="payment">Metode Pembayaran</label>
-            <select id="payment" name="payment" required>
-                <option value="dana">Dana</option>
-                <option value="qris">QRIS</option>
-                <option value="gopay">Gopay</option>
-            </select>
+      <div class="form-group">
+        <label for="payment">Metode Pembayaran</label>
+        <select id="payment" required>
+          <option value="">-- Pilih Metode --</option>
+          <option value="dana">Dana</option>
+          <option value="qris">QRIS</option>
+          <option value="gopay">Gopay</option>
+        </select>
+      </div>
 
-            <label for="price">Harga</label>
-            <input type="number" id="price" name="price" required>
+      <div class="form-group">
+        <label for="price">Harga (Rp)</label>
+        <input type="number" id="price" required />
+      </div>
 
-            <label for="logo">Upload Logo</label>
-            <input type="file" id="logo" name="logo" accept="image/*">
+      <div class="form-group">
+        <label for="logo">Upload Logo</label>
+        <input type="file" id="logo" accept="image/*" />
+      </div>
 
-            <div class="form-buttons">
-                <button type="submit">Simpan</button>
-                <button type="button" onclick="window.print()">Print</button>
-            </div>
-        </form>
-    </div>
+      <div class="form-buttons">
+        <button type="submit" class="btn save">Simpan</button>
+        <button type="button" class="btn print" onclick="window.print()">Print</button>
+      </div>
+    </form>
+  </div>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
