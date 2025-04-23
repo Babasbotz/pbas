@@ -40,6 +40,20 @@ input, select {
     border-radius: 4px;
 }
 
+ul#produk {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+ul#produk li {
+    margin: 8px 0;
+}
+
+ul#produk input[type="radio"] {
+    margin-right: 10px;
+}
+
 button {
     background-color: #4CAF50;
     color: white;
@@ -56,16 +70,7 @@ button:hover {
 
 .dynamic-field {
     display: none;
-}
-
-input[type="radio"]:checked ~ .premium-user,
-input[type="radio"]:checked ~ .sewabot-plus,
-input[type="radio"]:checked ~ .sewabot-vvip,
-input[type="radio"]:checked ~ .durasi,
-input[type="radio"]:checked ~ .payment,
-input[type="radio"]:checked ~ .harga,
-input[type="radio"]:checked ~ .tanggal-pembelian {
-    display: block;
+    margin-bottom: 15px;
 }
 
 input[type="radio"]:checked ~ .premium-user {
@@ -80,18 +85,9 @@ input[type="radio"]:checked ~ .sewabot-vvip {
     display: block;
 }
 
-input[type="radio"]:checked ~ .durasi {
-    display: block;
-}
-
-input[type="radio"]:checked ~ .payment {
-    display: block;
-}
-
-input[type="radio"]:checked ~ .harga {
-    display: block;
-}
-
+input[type="radio"]:checked ~ .durasi,
+input[type="radio"]:checked ~ .payment,
+input[type="radio"]:checked ~ .harga,
 input[type="radio"]:checked ~ .tanggal-pembelian {
     display: block;
 }
