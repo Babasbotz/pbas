@@ -1,14 +1,15 @@
 /* Global Styles */
 body {
-  background: #007bff; /* Warna Biru */
+  background: linear-gradient(135deg, #007bff, #00aaff); /* Gradient Biru */
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #444;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-size: cover;
 }
 
 .form-container {
@@ -16,22 +17,25 @@ body {
   max-width: 500px;
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Efek Bayangan lebih tajam */
   padding: 40px 30px;
   transform: translateY(-40px);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-container:hover {
   transform: translateY(0);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25); /* Efek bayangan saat hover */
 }
 
 h2 {
   text-align: center;
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   color: #333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 label {
@@ -56,7 +60,7 @@ input, select {
 }
 
 input:focus, select:focus {
-  border-color: #4CAF50;
+  border-color: #007bff; /* Warna biru saat focus */
   outline: none;
   background-color: #fff;
 }
@@ -64,7 +68,7 @@ input:focus, select:focus {
 button {
   width: 100%;
   padding: 14px;
-  background-color: #4CAF50;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 10px;
@@ -72,11 +76,16 @@ button {
   font-weight: 700;
   margin-top: 30px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #0056b3; /* Warna biru lebih gelap saat hover */
+  transform: translateY(-2px); /* Efek tombol naik */
+}
+
+button:active {
+  transform: translateY(2px); /* Efek tombol turun saat klik */
 }
 
 .note {
@@ -92,6 +101,6 @@ button:hover {
   }
 
   h2 {
-    font-size: 26px;
+    font-size: 28px;
   }
 }
