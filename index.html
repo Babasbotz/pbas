@@ -135,7 +135,7 @@
 
             <div class="form-group">
                 <label for="price">Harga (Rp)</label>
-                <input type="number" id="price" name="price" required placeholder="Masukkan harga" min="0">
+                <input type="text" id="price" name="price" required placeholder="Masukkan harga" min="0">
             </div>
 
             <button type="button" class="save-btn" id="generate-image">Simpan & Buat Bukti</button>
@@ -144,6 +144,10 @@
         <div class="image-container" id="image-container" style="display: none;">
             <h2>Bukti Pembayaran</h2>
             <canvas id="payment-canvas" width="600" height="400"></canvas>
+            <br>
+            <a id="download-link" href="#" download="bukti-pembayaran.jpg" style="display: none;">
+                <button class="save-btn">Download Bukti Pembayaran</button>
+            </a>
         </div>
     </div>
 
@@ -194,6 +198,14 @@
             ctx.stroke();
 
             ctx.fillText('Terima kasih telah melakukan pembayaran!', 20, 250);
+
+            // Mengkonversi canvas menjadi gambar JPG
+            const imageURL = canvas.toDataURL('image/jpeg');
+
+            // Membuat link download gambar
+            const downloadLink = document.getElementById('download-link');
+            downloadLink.href = imageURL;
+            downloadLink.style.display = 'inline-block';
         }
     </script>
 </body>
