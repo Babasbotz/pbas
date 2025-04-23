@@ -32,8 +32,16 @@
       </div>
 
       <div class="form-group">
-        <label for="duration">Durasi (hari)</label>
-        <input type="number" id="duration" min="1" required />
+        <label for="duration">Durasi</label>
+        <select id="duration" required>
+          <option value="">-- Pilih Durasi --</option>
+          <option value="1_hari">1 Hari</option>
+          <option value="3_hari">3 Hari</option>
+          <option value="1_minggu">1 Minggu</option>
+          <option value="2_minggu">2 Minggu</option>
+          <option value="1_bulan">1 Bulan</option>
+          <option value="3_bulan">3 Bulan</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -57,12 +65,31 @@
       </div>
 
       <div class="form-buttons">
-        <button type="submit" class="btn save">Simpan</button>
+        <button type="submit" class="btn-img" title="Simpan">
+          <img src="save-icon.png" alt="Simpan" />
+        </button>
         <button type="button" class="btn print" onclick="window.print()">Print</button>
       </div>
     </form>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const productSelect = document.getElementById('product');
+    const groupLinkField = document.getElementById('group-link-field');
+
+    productSelect.addEventListener('change', () => {
+      const value = productSelect.value;
+      if (value.startsWith('sewabot')) {
+        groupLinkField.classList.remove('hidden');
+      } else {
+        groupLinkField.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('payment-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Data berhasil disimpan!');
+    });
+  </script>
 </body>
 </html>
