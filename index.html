@@ -12,7 +12,7 @@
         <form action="#" method="POST">
             <div class="form-group">
                 <label for="name">Nama</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" required placeholder="Masukkan nama Anda">
             </div>
 
             <div class="form-group">
@@ -24,12 +24,12 @@
             </div>
 
             <div class="form-group">
-                <label for="duration">Durasi</label>
-                <input type="number" id="duration" name="duration" min="1" required>
+                <label for="duration">Durasi (Bulan)</label>
+                <input type="number" id="duration" name="duration" min="1" required placeholder="Masukkan durasi">
             </div>
 
             <div class="form-group">
-                <label for="payment">Payment</label>
+                <label for="payment">Metode Pembayaran</label>
                 <select id="payment" name="payment" required>
                     <option value="dana">Dana</option>
                     <option value="qris">QRIS</option>
@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <label for="price">Harga</label>
-                <input type="number" id="price" name="price" required readonly>
+                <input type="number" id="price" name="price" required readonly placeholder="Harga akan muncul di sini">
             </div>
 
             <button type="submit" class="save-btn">Simpan</button>
