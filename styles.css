@@ -1,105 +1,59 @@
-* {
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
-
 body {
-  margin: 0;
-  padding: 0;
-  background: #f0f2f5;
+  font-family: sans-serif;
+  background: #f0f0f0;
+  margin: 20px;
+  text-align: center;
 }
 
 .container {
-  max-width: 600px;
-  margin: 40px auto;
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
   background: #fff;
-  padding: 25px 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 25px;
-}
-
-.form-group {
   margin-bottom: 20px;
 }
 
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #444;
-}
-
-input[type="text"],
-input[type="url"],
-input[type="number"],
-input[type="file"],
-select {
+table {
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  transition: 0.3s;
+  border-collapse: collapse;
 }
 
-input:focus,
-select:focus {
-  border-color: #4caf50;
-  outline: none;
-}
-
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.btn {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
+thead {
+  background: #007bff;
   color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
 }
 
-.btn.print {
-  background-color: #2196f3;
+th, td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
 }
 
-.btn-img {
-  background: none;
+tbody td {
+  background: #fefefe;
+}
+
+tbody tr:hover {
+  background: #f0f8ff;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #28a745;
+  color: white;
   border: none;
-  padding: 0;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
-.btn-img img {
-  width: 45px;
-  height: 45px;
-  object-fit: contain;
-}
-
-.btn-img:hover img {
-  transform: scale(1.05);
-}
-
-.hidden {
-  display: none;
-}
-
-@media print {
-  .form-buttons {
-    display: none;
-  }
+button:hover {
+  background: #218838;
 }
