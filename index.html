@@ -3,327 +3,207 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Website Pembayaran</title>
+  <title>Pembayaran Shina-Ai</title>
   <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --box-color: #f0f0f0;
+    }
+    body.dark {
+      --bg-color: #1c1c1c;
+      --text-color: #ffffff;
+      --box-color: #2a2a2a;
+    }
     body {
+      background: var(--bg-color);
+      color: var(--text-color);
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
       margin: 0;
-      padding: 0;
-      transition: background-color 0.3s, color 0.3s;
+      padding: 1rem;
     }
-
     .container {
-      width: 90%;
-      max-width: 400px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      box-sizing: border-box;
-      transition: background-color 0.3s;
-    }
-
-    h2 {
-      text-align: center;
-      color: #007aff;
-      margin-bottom: 20px;
-      transition: color 0.3s;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      font-weight: bold;
-      font-size: 14px;
-      display: block;
-      transition: color 0.3s;
-    }
-
-    select,
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      font-size: 14px;
-      margin-top: 5px;
+      max-width: 500px;
+      margin: auto;
       border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .button {
-      width: 100%;
-      padding: 10px;
-      background-color: #007aff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: background-color 0.3s;
-    }
-
-    .button:hover {
-      background-color: #005ee2;
-    }
-
-    .whatsapp-button {
-      background-color: #25D366;
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      padding: 12px;
-      border-radius: 8px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      text-decoration: none;
-      align-items: center;
-    }
-
-    .whatsapp-button:hover {
-      background-color: #128C7E;
-    }
-
-    .whatsapp-button img {
-      width: 20px;
-      margin-right: 10px;
-    }
-
-    .note {
-      font-size: 12px;
-      color: #555;
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    .qr-image {
-      width: 100%;
-      margin-top: 20px;
-      text-align: center;
-      display: none; /* QRIS image hidden by default */
-    }
-
-    .qr-image img {
-      max-width: 100%;
-      width: 100%;
-      max-height: 500px; /* Gambar QRIS yang lebih besar */
+      padding: 1rem;
       border-radius: 10px;
+      background: var(--box-color);
     }
-
-    #durasi-group {
-      display: none;
+    h2, h4 {
+      text-align: center;
+      color: #007BFF;
     }
-
-    #info-durasi {
-      font-size: 12px;
-      color: #666;
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
       margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
-
-    /* Dark Mode Styles */
-    body.dark-mode {
-      background-color: #2e2e2e;
-      color: #ddd;
+    .note {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 0.5rem;
     }
-
-    .container.dark-mode {
-      background-color: #333;
-    }
-
-    h2.dark-mode {
-      color: #4a90e2;
-    }
-
-    label.dark-mode {
-      color: #bbb;
-    }
-
-    select.dark-mode,
-    input[type="text"].dark-mode {
-      background-color: #444;
-      color: white;
-      border-color: #666;
-    }
-
-    .button.dark-mode {
-      background-color: #4a90e2;
-    }
-
-    .whatsapp-button.dark-mode {
-      background-color: #128C7E;
-    }
-
-    .whatsapp-button.dark-mode:hover {
-      background-color: #075E54;
-    }
-
-    .note.dark-mode {
-      color: #bbb;
-    }
-
-    /* Toggle Dark/Light Mode Button */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #007aff;
+    .btn {
+      margin-top: 1rem;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #007BFF;
       color: white;
       border: none;
-      padding: 10px;
-      border-radius: 50%;
-      font-size: 18px;
+      border-radius: 5px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .dark-mode-toggle {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .qr-link {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .qr-link img {
+      width: 200px;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
+  <div class="dark-mode-toggle">
+    <button onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
+  </div>
 
-<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  <div class="container">
+    <h2>Form Pembayaran</h2>
 
-<div class="container">
-  <h2>Pembayaran Struktur</h2>
+    <label for="nama">Nama Pembeli</label>
+    <input type="text" id="nama">
 
-  <div class="form-group">
+    <label for="nomor">Nomor WhatsApp</label>
+    <input type="text" id="nomor">
+
     <label for="produk">Pilih Produk</label>
-    <select id="produk" onchange="onProdukChange()">
+    <select id="produk" onchange="updateDurasi()">
+      <option value="">-- Pilih Produk --</option>
       <option value="Premium User">Premium User</option>
       <option value="Sewabot Grup Basic">Sewabot Grup Basic</option>
-      <option value="Sewabot Plus">Sewabot Plus</option>
+      <option value="Sewabot Grup Plus">Sewabot Grup Plus</option>
       <option value="Sewabot Grup VVIP">Sewabot Grup VVIP</option>
     </select>
-  </div>
 
-  <div class="form-group" id="durasi-group">
-    <label for="durasi">Pilih Durasi</label>
-    <select id="durasi" onchange="onDurasiChange()"></select>
-    <div id="info-durasi"></div>
-  </div>
+    <div id="note" class="note"></div>
 
-  <div class="form-group">
-    <label for="payment">Metode Pembayaran</label>
-    <select id="payment" onchange="handlePaymentChange()">
-      <option value="Dana">Dana (08988189120)</option>
-      <option value="Gopay">Gopay (08988189120)</option>
-      <option value="QRIS">QRIS</option>
+    <label for="durasi">Durasi</label>
+    <select id="durasi" onchange="updateHarga()">
+      <option value="">-- Pilih Durasi --</option>
     </select>
-  </div>
 
-  <div class="form-group">
     <label for="harga">Harga</label>
-    <input type="text" id="harga" placeholder="Masukkan harga produk" />
+    <input type="text" id="harga" readonly>
+
+    <label for="metode">Metode Pembayaran</label>
+    <select id="metode" onchange="toggleQR()">
+      <option value="">-- Pilih Metode --</option>
+      <option value="Dana">Dana - 08988189120</option>
+      <option value="Gopay">Gopay - 08988189120</option>
+      <option value="Qris">Qris</option>
+    </select>
+
+    <div class="qr-link" id="qris" style="display: none;">
+      <a href="https://i.ibb.co.com/Q34ts6MW/IMG-20250205-WA0004-1.jpg" target="_blank">
+        <img src="https://i.ibb.co.com/Q34ts6MW/IMG-20250205-WA0004-1.jpg" alt="QRIS">
+      </a>
+    </div>
+
+    <button class="btn" onclick="kirimWhatsApp()">Konfirmasi via WhatsApp</button>
   </div>
 
-  <button class="button" onclick="generatePayment()">Proses Pembayaran</button>
+  <script>
+    const durasiData = {
+      "Premium User": {
+        harga: {
+          "15 Hari": "Rp 8.000",
+          "1 Bulan": "Rp 15.000",
+          "2 Bulan": "Rp 30.000",
+          "1 Tahun": "Rp 60.000",
+          "Permanent": "Rp 100.000"
+        }
+      },
+      "Sewabot Grup Basic": {
+        harga: {
+          "15 Hari": "Rp 10.000",
+          "1 Bulan": "Rp 15.000",
+          "2 Bulan": "Rp 30.000"
+        },
+        note: "ⓘ Maksimal 200 member ⓘ Tidak Dapat Premium User"
+      },
+      "Sewabot Grup Plus": {
+        harga: {
+          "15 Hari": "Rp 15.000",
+          "1 Bulan": "Rp 25.000",
+          "2 Bulan": "Rp 45.000"
+        },
+        note: "ⓘ Maksimal 500 member ⓘ Gratis Premium User untuk 1 orang"
+      },
+      "Sewabot Grup VVIP": {
+        harga: {
+          "15 Hari": "Rp 20.000",
+          "1 Bulan": "Rp 35.000",
+          "2 Bulan": "Rp 65.000"
+        },
+        note: "ⓘ Maksimal 250 member ⓘ Gratis Premium User untuk 1 orang ⓘ Semua member premium di grup"
+      }
+    };
 
-  <div id="whatsappButton" style="display: none;">
-    <a id="whatsappLink" href="#" class="whatsapp-button" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-      Hubungi Penjual
-    </a>
-  </div>
-
-  <div id="qrisImage" class="qr-image">
-    <p>Silakan lakukan pembayaran menggunakan QRIS dengan scan kode berikut:</p>
-    <img src="https://i.ibb.co.com/Q34ts6MW/IMG-20250205-WA0004-1.jpg" alt="QRIS" />
-  </div>
-
-  <div class="note">
-    Pastikan Anda membayar sesuai metode yang dipilih dan konfirmasi lewat WhatsApp setelah transfer.
-  </div>
-</div>
-
-<script>
-  const durasiOptions = {
-    "Premium User": [
-      { label: "15 Hari – Rp 8.000", value: 8000 },
-      { label: "1 Bulan – Rp 15.000", value: 15000 },
-      { label: "2 Bulan – Rp 30.000", value: 30000 },
-      { label: "1 Tahun – Rp 60.000", value: 60000 },
-      { label: "Permanent – Rp 100.000", value: 100000 }
-    ],
-    "Sewabot Grup Basic": [
-      { label: "15 Hari – Rp 10.000", value: 10000 },
-      { label: "1 Bulan – Rp 15.000", value: 15000 },
-      { label: "2 Bulan – Rp 30.000", value: 30000 }
-    ],
-    "Sewabot Plus": [
-      { label: "15 Hari – Rp 15.000", value: 15000 },
-      { label: "1 Bulan – Rp 25.000", value: 25000 },
-      { label: "2 Bulan – Rp 45.000", value: 45000 }
-    ],
-    "Sewabot Grup VVIP": [
-      { label: "15 Hari – Rp 20.000", value: 20000 },
-      { label: "1 Bulan – Rp 35.000", value: 35000 },
-      { label: "2 Bulan – Rp 65.000", value: 65000 }
-    ]
-  };
-
-  function toggleTheme() {
-    const body = document.body;
-    const container = document.querySelector('.container');
-    const h2 = document.querySelector('h2');
-    const labels = document.querySelectorAll('label');
-    const selects = document.querySelectorAll('select');
-    const inputs = document.querySelectorAll('input[type="text"]');
-    const buttons = document.querySelectorAll('.button');
-    const whatsappButtons = document.querySelectorAll('.whatsapp-button');
-    const notes = document.querySelectorAll('.note');
-
-    body.classList.toggle('dark-mode');
-    container.classList.toggle('dark-mode');
-    h2.classList.toggle('dark-mode');
-    labels.forEach(label => label.classList.toggle('dark-mode'));
-    selects.forEach(select => select.classList.toggle('dark-mode'));
-    inputs.forEach(input => input.classList.toggle('dark-mode'));
-    buttons.forEach(button => button.classList.toggle('dark-mode'));
-    whatsappButtons.forEach(button => button.classList.toggle('dark-mode'));
-    notes.forEach(note => note.classList.toggle('dark-mode'));
-
-    const themeIcon = body.classList.contains('dark-mode') ? '🌕' : '🌙';
-    document.querySelector('.theme-toggle').textContent = themeIcon;
-  }
-
-  function onProdukChange() {
-    const produk = document.getElementById("produk").value;
-    const durasiGroup = document.getElementById("durasi-group");
-    const durasiSelect = document.getElementById("durasi");
-    const infoDurasi = document.getElementById("info-durasi");
-    
-    durasiGroup.style.display = "block";
-    durasiSelect.innerHTML = '';
-    infoDurasi.innerHTML = '';
-
-    const options = durasiOptions[produk];
-    options.forEach(option => {
-      const opt = document.createElement("option");
-      opt.value = option.value;
-      opt.innerHTML = option.label;
-      durasiSelect.appendChild(opt);
-    });
-
-    infoDurasi.innerHTML = `Maksimal anggota di grup: ${produk === "Sewabot Grup Basic" ? 200 : 500}`;
-  }
-
-  function handlePaymentChange() {
-    const payment = document.getElementById("payment").value;
-    const qrisImage = document.getElementById("qrisImage");
-
-    if (payment === "QRIS") {
-      qrisImage.style.display = "block"; // Show QRIS image
-    } else {
-      qrisImage.style.display = "none"; // Hide QRIS image
+    function updateDurasi() {
+      const produk = document.getElementById("produk").value;
+      const durasiSelect = document.getElementById("durasi");
+      const noteDiv = document.getElementById("note");
+      durasiSelect.innerHTML = '<option value="">-- Pilih Durasi --</option>';
+      document.getElementById("harga").value = "";
+      if (produk && durasiData[produk]) {
+        Object.keys(durasiData[produk].harga).forEach(durasi => {
+          durasiSelect.innerHTML += `<option value="${durasi}">${durasi}</option>`;
+        });
+        noteDiv.innerText = durasiData[produk].note || "";
+      }
     }
-  }
 
-  function generatePayment() {
-    const produk = document.getElementById("produk").value;
-    const payment = document.getElementById("payment").value;
-    const harga = document.getElementById("harga
-  
+    function updateHarga() {
+      const produk = document.getElementById("produk").value;
+      const durasi = document.getElementById("durasi").value;
+      const harga = durasiData[produk]?.harga[durasi] || "";
+      document.getElementById("harga").value = harga;
+    }
+
+    function toggleQR() {
+      const metode = document.getElementById("metode").value;
+      document.getElementById("qris").style.display = metode === "Qris" ? "block" : "none";
+    }
+
+    function kirimWhatsApp() {
+      const nama = document.getElementById("nama").value;
+      const nomor = document.getElementById("nomor").value;
+      const produk = document.getElementById("produk").value;
+      const durasi = document.getElementById("durasi").value;
+      const harga = document.getElementById("harga").value;
+      const metode = document.getElementById("metode").value;
+
+      const pesan = `Halo, saya ingin konfirmasi pembayaran:\n\nNama: ${nama}\nNomor WA: ${nomor}\nProduk: ${produk}\nDurasi: ${durasi}\nHarga: ${harga}\nMetode: ${metode}`;
+      window.open(`https://wa.me/6285119201210?text=${encodeURIComponent(pesan)}`);
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+  </script>
+</body>
+</html>
