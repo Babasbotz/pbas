@@ -1,205 +1,90 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Struktur Pembayaran</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f4f8;
-      margin: 0;
-      padding: 40px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .container {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      max-width: 600px;
-      width: 100%;
-      position: relative;
-    }
-
-    h1 {
-      text-align: center;
-      margin: 20px 0;
-      color: #1e88e5;
-      font-size: 28px;
-      font-weight: 600;
-    }
-
-    .entry {
-      background: #ffffff;
-      border: 1px solid #e0e0e0;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    }
-
-    .form-row {
-      margin-bottom: 12px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .form-row label {
-      font-weight: 600;
-      min-width: 130px;
-      color: #555;
-    }
-
-    .form-row input,
-    .form-row select {
-      flex: 1;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 15px;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 14px 30px;
-      font-size: 16px;
-      background: #1e88e5;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
-    }
-
-    button:hover {
-      background: #1565c0;
-    }
-
-    #preview-container {
-      margin-top: 20px;
-      padding: 20px;
-      background-color: #ffffff;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-      display: none;
-      max-width: 600px;
-      width: 100%;
-      border-radius: 12px;
-    }
-
-    .preview-entry {
-      margin-bottom: 12px;
-    }
-
-    .thank-you-message {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #4CAF50;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Pembayaran</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container" id="capture-area">
-    <h1>Struktur Pembayaran</h1>
 
-    <div class="entry">
-      <div class="form-row">
-        <label for="nama">Nama</label>
-        <input type="text" id="nama" placeholder="Masukkan nama" />
-      </div>
+<div class="container">
+    <h1>Invoice Pembayaran</h1>
+    <form id="invoice-form">
+        <label for="nama">Nama Pembeli:</label>
+        <input type="text" id="nama" name="nama" required>
 
-      <div class="form-row">
-        <label for="produk">Produk</label>
-        <select id="produk" onchange="updateFields()">
-          <option value="">Pilih Produk</option>
-          <option value="premium">Premium User</option>
-          <option value="basic">Sewabot Basic</option>
-          <option value="plus">Sewabot Plus</option>
-          <option value="vvip">Sewabot VVIP</option>
+        <label for="produk">Pilih Produk:</label>
+        <select id="produk" name="produk" required>
+            <option value="">--Pilih Produk--</option>
+            <option value="premium">Premium User</option>
+            <option value="basic">Sewabot Basic</option>
+            <option value="plus">Sewabot Plus</option>
+            <option value="vip">Sewabot VVIP</option>
         </select>
-      </div>
 
-      <div id="additional-fields"></div>
+        <!-- Kolom Dinamis untuk Produk -->
+        <div class="dynamic-field">
+            <input type="radio" id="premium" name="produk" value="premium" class="produk" />
+            <label for="premium">Premium User</label>
+            <div class="premium-user">
+                <label for="nomor-premium">Nomor Premium:</label>
+                <input type="text" id="nomor-premium" name="nomor-premium">
+            </div>
+        </div>
 
-      <div class="form-row">
-        <label for="durasi">Durasi</label>
-        <input type="text" id="durasi" placeholder="Contoh: 1 Bulan" />
-      </div>
+        <div class="dynamic-field">
+            <input type="radio" id="plus" name="produk" value="plus" class="produk" />
+            <label for="plus">Sewabot Plus</label>
+            <div class="sewabot-plus">
+                <label for="nomor-premium">Nomor Premium:</label>
+                <input type="text" id="nomor-premium" name="nomor-premium">
+                <label for="link-grup">Link Grup:</label>
+                <input type="text" id="link-grup" name="link-grup">
+            </div>
+        </div>
 
-      <div class="form-row">
-        <label for="tanggal">Tanggal Pembelian</label>
-        <input type="date" id="tanggal" />
-      </div>
+        <div class="dynamic-field">
+            <input type="radio" id="vip" name="produk" value="vip" class="produk" />
+            <label for="vip">Sewabot VVIP</label>
+            <div class="sewabot-vvip">
+                <label for="premium-user">Premium User:</label>
+                <input type="text" id="premium-user" name="premium-user">
+                <label for="id-grup">ID Grup:</label>
+                <input type="text" id="id-grup" name="id-grup">
+                <label for="link-grup">Link Grup:</label>
+                <input type="text" id="link-grup" name="link-grup">
+            </div>
+        </div>
 
-      <div class="form-row">
-        <label for="harga">Harga</label>
-        <input type="text" id="harga" placeholder="Contoh: Rp30.000" />
-      </div>
+        <div class="dynamic-field">
+            <label for="durasi">Durasi (bulan):</label>
+            <input type="number" id="durasi" name="durasi" required>
+        </div>
 
-      <div class="form-row">
-        <label for="payment">Payment</label>
-        <input type="text" id="payment" placeholder="Contoh: Transfer" />
-      </div>
+        <div class="dynamic-field">
+            <label for="payment">Metode Pembayaran:</label>
+            <select id="payment" name="payment" required>
+                <option value="">--Pilih Metode Pembayaran--</option>
+                <option value="transfer">Transfer Bank</option>
+                <option value="gopay">Gopay</option>
+                <option value="ovo">OVO</option>
+            </select>
+        </div>
 
-      <button onclick="downloadImage()">Simpan Sebagai Gambar</button>
-    </div>
-  </div>
+        <div class="dynamic-field">
+            <label for="harga">Harga:</label>
+            <input type="number" id="harga" name="harga" required>
+        </div>
 
-  <div class="thank-you-message" id="thank-you-message" style="display: none;">
-    Terima kasih sudah order bot di SHINA - Ai
-  </div>
+        <div class="dynamic-field">
+            <label for="tanggal-pembelian">Tanggal Pembelian:</label>
+            <input type="date" id="tanggal-pembelian" name="tanggal-pembelian" required>
+        </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script>
-    function updateFields() {
-      const produk = document.getElementById('produk').value;
-      const fields = document.getElementById('additional-fields');
-      fields.innerHTML = '';
+        <button type="submit">Proses Pembayaran</button>
+    </form>
+</div>
 
-      if (produk === 'premium' || produk === 'plus' || produk === 'vvip') {
-        fields.innerHTML += `
-          <div class="form-row">
-            <label for="nomorPremium">Nomor Premium</label>
-            <input type="text" id="nomorPremium" placeholder="Masukkan Nomor Premium" />
-          </div>`;
-      }
-
-      if (produk === 'basic' || produk === 'plus' || produk === 'vvip') {
-        fields.innerHTML += `
-          <div class="form-row">
-            <label for="linkGrup">Link Grup</label>
-            <input type="text" id="linkGrup" placeholder="Masukkan Link Grup" />
-          </div>`;
-      }
-
-      if (produk === 'vvip') {
-        fields.innerHTML += `
-          <div class="form-row">
-            <label for="idGrup">ID Grup</label>
-            <input type="text" id="idGrup" placeholder="Masukkan ID Grup" />
-          </div>`;
-      }
-    }
-
-    function downloadImage() {
-      const area = document.getElementById('capture-area');
-      html2canvas(area).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'struktur-pembayaran.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-
-        // Hide buttons and show "Thank You" message
-        document.querySelector('button').style.display = 'none';
-        document.getElementById('thank-you-message').style.display = 'block';
-      });
-    }
-  </script>
 </body>
 </html>
