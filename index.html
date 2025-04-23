@@ -123,11 +123,6 @@
         <input type="date" id="tanggal" required>
       </div>
 
-      <div class="form-group">
-        <label for="logo">Upload Logo (Opsional)</label>
-        <input type="file" id="logo" accept="image/*">
-      </div>
-
       <button type="button" class="save-btn" onclick="generateInvoice()">Simpan & Unduh Invoice</button>
     </form>
   </div>
@@ -140,19 +135,6 @@
 
   <script>
     let logoImg = null;
-
-    // Pemuatan gambar logo
-    document.getElementById("logo").addEventListener("change", function(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          logoImg = new Image();
-          logoImg.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
 
     // Fungsi untuk menampilkan input tambahan berdasarkan produk yang dipilih
     function toggleProductFields() {
@@ -207,7 +189,6 @@
       const payment = document.getElementById("payment").value;
       const price = document.getElementById("price").value;
       const tanggal = document.getElementById("tanggal").value;
-      const logoInput = document.getElementById("logo").files[0];
       const premiumNumber = document.getElementById("premium-number")?.value || '';
       const groupLink = document.getElementById("group-link")?.value || '';
       const groupId = document.getElementById("group-id")?.value || '';
@@ -256,27 +237,12 @@
         ctx.fillText("ID Grup", 50, y += 40); ctx.fillText(": " + groupId, 250, y);
       }
 
-      // Logo Bulat
-      if (logoImg) {
-        logoImg.onload = function() {
-          const logoX = 50;
-          const logoY = 30;
-          const logoSize = 60;
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(logoX + logoSize / 2, logoY + logoSize / 2, logoSize / 2, 0, 2 * Math.PI);
-          ctx.clip();
-          ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
-          ctx.restore();
-        }
-      }
-
       // Footer
       ctx.fillStyle = "#007bff";
       ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
       ctx.fillStyle = "#fff";
       ctx.font = "italic 14px Arial";
-      ctx.fillText("Terima kasih sudah order di Shina - Ai, simpan invoice ini agar bisa claim garansi jika botnya mati", 30, canvas.height - 20);
+      ctx.fillText("Terima kasih telah melakukan pembayaran", 30, canvas.height - 20);
 
       // Unduh invoice
       const link = document.createElement("a");
