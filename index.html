@@ -73,6 +73,16 @@
             background-color: #45a049;
         }
 
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .image-container canvas {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
         /* Responsif */
         @media (max-width: 768px) {
             .payment-container {
@@ -95,7 +105,7 @@
 <body>
     <div class="payment-container">
         <h1>Form Pembayaran</h1>
-        <form action="#" method="POST">
+        <form action="#" method="POST" id="payment-form">
             <div class="form-group">
                 <label for="name">Nama</label>
                 <input type="text" id="name" name="name" required placeholder="Masukkan nama Anda">
@@ -111,7 +121,7 @@
 
             <div class="form-group">
                 <label for="duration">Durasi (Bulan)</label>
-                <input type="text" id="duration" name="duration" required placeholder="Misal: 3 bulan">
+                <input type="number" id="duration" name="duration" required placeholder="Misal: 3 bulan" min="1">
             </div>
 
             <div class="form-group">
@@ -124,30 +134,66 @@
             </div>
 
             <div class="form-group">
-                <label for="price">Harga</label>
-                <input type="text" id="price" name="price" required readonly placeholder="Harga akan muncul di sini">
+                <label for="price">Harga (Rp)</label>
+                <input type="number" id="price" name="price" required placeholder="Masukkan harga" min="0">
             </div>
 
-            <button type="submit" class="save-btn">Simpan</button>
+            <button type="button" class="save-btn" id="generate-image">Simpan & Buat Bukti</button>
         </form>
+
+        <div class="image-container" id="image-container" style="display: none;">
+            <h2>Bukti Pembayaran</h2>
+            <canvas id="payment-canvas" width="600" height="400"></canvas>
+        </div>
     </div>
 
     <script>
-        document.getElementById('product').addEventListener('change', calculatePrice);
-        document.getElementById('duration').addEventListener('input', calculatePrice);
+        document.getElementById('generate-image').addEventListener('click', generateReceipt);
 
-        function calculatePrice() {
+        function generateReceipt() {
+            const name = document.getElementById('name').value;
             const product = document.getElementById('product').value;
             const duration = document.getElementById('duration').value;
-            let price = 0;
+            const payment = document.getElementById('payment').value;
+            const price = document.getElementById('price').value;
 
-            if (product === 'premium') {
-                price = 100000 * duration; // Contoh harga untuk Premium User per bulan
-            } else if (product === 'sewabot') {
-                price = 150000 * duration; // Contoh harga untuk Sewabot Grup per bulan
+            // Validasi input
+            if (!name || !product || !duration || !payment || !price) {
+                alert("Pastikan semua kolom diisi dengan benar.");
+                return;
             }
 
-            document.getElementById('price').value = 'Rp ' + price.toLocaleString();
+            // Tampilkan bagian gambar bukti pembayaran
+            document.getElementById('image-container').style.display = 'block';
+
+            // Ambil elemen canvas
+            const canvas = document.getElementById('payment-canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Gambar latar belakang
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Gambar teks
+            ctx.fillStyle = '#333';
+            ctx.font = '20px Arial';
+            ctx.fillText('Bukti Pembayaran', 20, 30);
+
+            ctx.font = '16px Arial';
+            ctx.fillText('Nama: ' + name, 20, 70);
+            ctx.fillText('Produk: ' + product, 20, 100);
+            ctx.fillText('Durasi: ' + duration + ' bulan', 20, 130);
+            ctx.fillText('Metode Pembayaran: ' + payment, 20, 160);
+            ctx.fillText('Harga: Rp ' + price, 20, 190);
+
+            // Menambahkan garis pemisah
+            ctx.beginPath();
+            ctx.moveTo(20, 220);
+            ctx.lineTo(580, 220);
+            ctx.strokeStyle = '#333';
+            ctx.stroke();
+
+            ctx.fillText('Terima kasih telah melakukan pembayaran!', 20, 250);
         }
     </script>
 </body>
