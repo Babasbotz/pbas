@@ -46,7 +46,7 @@
     <script>
         // Fungsi untuk menyimpan form sebagai gambar
         document.getElementById('save-btn').addEventListener('click', function() {
-            html2canvas(document.getElementById('payment-form')).then(function(canvas) {
+            html2canvas(document.getElementById('payment-form'), {scrollX: 0, scrollY: -window.scrollY}).then(function(canvas) {
                 // Simpan canvas sebagai gambar
                 const imageUrl = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
@@ -60,7 +60,9 @@
         document.getElementById('print-btn').addEventListener('click', function() {
             const content = document.getElementById('payment-form');
             const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Print Form Pembayaran</title></head><body>');
+            printWindow.document.write('<html><head><title>Print Form Pembayaran</title>');
+            printWindow.document.write('<style>body { font-family: Arial, sans-serif; padding: 20px; }</style>');
+            printWindow.document.write('</head><body>');
             printWindow.document.write(content.innerHTML);
             printWindow.document.write('</body></html>');
             printWindow.document.close();
